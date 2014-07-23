@@ -15,3 +15,28 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+//= require underscore
+//= require backbone
+//= require facedoge
+//= require_tree ../templates
+//= require_tree ./models
+//= require_tree ./collections
+//= require_tree ./views
+//= require_tree ./routers
+//= require_tree .
+
+
+$(document).ready(function() {
+});
+
+var checkForm = function() {
+  $('div.form-group').removeClass('has-error');
+  $('.alert').remove();
+  if (!$('input[type="text"]').val() || !$('input[type="password"]').val()) {
+    $('div.alerts').append(
+      '<div class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>Blank field.</div>');
+    $('div.form-group').addClass('has-error');
+    return false;
+  }
+  return true;
+};
