@@ -41,7 +41,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'backbone-on-rails'
 gem 'ejs'
-#gem 'bootstrap-sass'
+gem 'bootstrap-sass'
 
 group :development do
   gem 'pry-rails'
