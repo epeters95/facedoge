@@ -1,0 +1,26 @@
+<% action_url = (action == :login ? session_url : users_url ) %>
+
+<form action="<%= action_url %>" method="POST">
+  <input
+    type="hidden"
+    name="authenticity_token"
+    value="<%= form_authenticity_token %>">
+  
+  <div class="form-group">
+  <label for="user-email">Email</label>
+  <input
+    id="user-email"
+    type="text"
+    name="user[email]"
+    value="<%= @user.email if @user%>">
+  </div>
+  <br>
+  <div class="form-group">
+    <label for="user-pwd">Password</label>
+    <input type="password" name="user[password]">
+  </div>
+  <br>
+  <div class="form-group">
+    <input type="submit" class="btn">
+  </div>
+</form>
