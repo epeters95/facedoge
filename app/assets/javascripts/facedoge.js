@@ -8,9 +8,6 @@ window.Facedoge = {
     //new Facedoge.Router.AppRouter({
     //  $rootEl = ?
     //});
+    //Backbone.history.start();
   }
 };
-
-$(document).ready(function(){
-  Facedoge.initialize();
-});

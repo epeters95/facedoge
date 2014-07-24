@@ -1,6 +1,7 @@
 Facedoge.Routers.AppRouter = Backbone.Router.extend({
   routes: {
     "" : "showFeed"
+    // ""
   },
 
   showFeed: function() {
