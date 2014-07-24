@@ -5,5 +5,12 @@ Rails.application.routes.draw do
   end
   resource :session, only: [:create, :new, :destroy]
   
-  root to: "users#index"
+  namespace :api, defaults: { format: :json } do
+    resources :users, only: [:show, :index]
+    resources :friendships, only: [:create, :show]
+    # resources :posts
+    # resources :comments
+  end
+  
+  root to: "static_pages#root"
 end

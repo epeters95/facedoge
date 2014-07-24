@@ -5,7 +5,9 @@ window.Facedoge = {
   Routers: {},
   initialize: function() {
     alert("Backbone not finished. Come back later.");
-    //new Facedoge.Router.AppRouter();
+    //new Facedoge.Router.AppRouter({
+    //  $rootEl = ?
+    //});
   }
 };
 
