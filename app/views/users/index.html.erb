@@ -2,6 +2,19 @@
 
 <ul>
 <% User.all.each do |user| %>
+  <% next if user.id == current_user.id %>
   <li><%= user.email %></li>
+  <% if current_user.connectedFriends.include?(user) %>
+  <!-- buttons for testing only! -->
+    <% friendship = Friendship.find_by({in_friend_id: user.id, out_friend_id: current_user.id}) %>
+    <%= button_to "Unfriend", api_friendship_url(friendship), method: :delete %>
+  <% else %>
+    <form action="<%= api_friendships_url %>" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="friendship[in_friend_id]" value="<%= user.id %>">
+      <input type="hidden" name="friendship[out_friend_id]" value="<%= current_user.id %>">
+      <input type="submit" value="Add Friend">
+    </form>
+  <% end %>
 <% end %>
 </ul>

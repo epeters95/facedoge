@@ -1,1 +1,19 @@
 <p><%= @user.email %>'s profile page, <i>to be completed</i></p>
+<h2>My friends</h2>
+<ul>
+  <% @user.connectedFriends.each do |friend| %>
+    <li><%= friend.email %></li>
+  <% end %>
+</ul>
+<h2>My friend requests</h2>
+<ul>
+  <% @user.friendRequests.each do |friend| %>
+    <li><%= friend.email %></li>
+  <% end %>
+</ul>
+<h2>My sent requests</h2>
+<ul>
+  <% @user.sentRequests.each do |friend| %>
+    <li><%= friend.email %></li>
+  <% end %>
+</ul>

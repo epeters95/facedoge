@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
   # TODO: don't keep index
-  resources :users, only: [:create, :new, :show, :index] do
-    resources :friendships, only: [:create]
-  end
+  resources :users, only: [:create, :new, :show, :index]
   resource :session, only: [:create, :new, :destroy]
   
   namespace :api, defaults: { format: :json } do
     resources :friends, only: [:show, :index]
-    resources :friendships, only: [:create, :show]
+    resources :friendships, only: [:create, :show, :destroy]
     # resources :posts
     # resources :comments
   end

@@ -32,6 +32,35 @@ class User < ActiveRecord::Base
     user.is_password?(password) ? user : nil
   end
   
+  def friendRequests
+    users = []
+    self.in_friendships.each do |in_friendship|
+      user = User.find(in_friendship.out_friend_id)
+      users << user unless self.connectedFriends.include?(user)
+    end
+    users
+  end
+  
+  def connectedFriends
+    users = []
+    self.out_friendships.each do |out_friendship|
+      match = self.in_friendships.select do |in_friendship|
+        out_friendship.in_friend_id == in_friendship.out_friend_id
+      end.first
+      users << User.find(match.out_friend_id) if match
+    end
+    users
+  end
+  
+  def sentRequests
+    users = []
+    self.out_friendships.each do |out_friendship|
+      user = User.find(out_friendship.in_friend_id)
+      users << user unless self.connectedFriends.include?(user)
+    end
+    users
+  end
+  
   private
   def ensure_session_token
     self.session_token ||= self.class.generate_session_token

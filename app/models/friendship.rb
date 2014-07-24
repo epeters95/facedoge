@@ -5,13 +5,4 @@ class Friendship < ActiveRecord::Base
   validates :in_friend_id, :out_friend_id, :presence => true
   validates :out_friend_id, :uniqueness => { :scope => :in_friend_id }
   
-  def self.can_friend?(in_id , out_id)
-    return false if in_id == out_id
-    !Friendship.exists?(in_friend_id: in_id, out_friend_id: out_id)
-  end
-  
-  def self.can_unfriend?(in_id, out_id)
-    return false if in_id == out_id
-    Friendship.exists?(in_friend_id: in_id, out_friend_id: out_id)
-  end
 end

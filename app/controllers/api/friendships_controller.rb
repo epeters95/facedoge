@@ -14,6 +14,26 @@ module Api
       end
     end
     
+    def destroy
+      @friendship = Friendship.find(params[:id])
+      # delete reverse friendship
+      @other = Friendship.find_by({
+        in_friend_id: @friendship.out_friend_id,
+        out_friend_id: @friendship.in_friend_id
+      })
+      # TODO: maybe try to destroy other if one isn't found?
+      if @other
+        @other.destroy
+      end
+      if @friendship
+        @friendship.destroy
+        # TODO: maybe render json containing both?
+        render json: @friendship
+      else
+        render "Couldn't find friendship to #destroy"
+      end
+    end
+    
     private
     def friendship_params
       params.require(:friendship).permit(:in_friend_id, :out_friend_id)
