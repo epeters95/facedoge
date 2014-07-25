@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   # TODO: don't keep index
-  resources :users, only: [:create, :new, :show, :index]
   resource :session, only: [:create, :new, :destroy]
+  resources :users, only: [:create, :new, :show, :index]
+  resources :profiles, only: [:create, :edit, :update]
   
   namespace :api, defaults: { format: :json } do
     resources :users, only: [:show, :index]
