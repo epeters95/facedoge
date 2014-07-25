@@ -4,10 +4,13 @@ window.Facedoge = {
   Views: {},
   Routers: {},
   initialize: function() {
-    alert("Backbone not finished. Come back later.");
-    //new Facedoge.Router.AppRouter({
-    //  $rootEl = ?
-    //});
-    //Backbone.history.start();
+    Facedoge.currentUser = Facedoge.Models.User.extend({ url: "api/current_user" });
+    
+    Facedoge.allUsers = new Facedoge.Collections.Users;
+    Facedoge.allUsers.fetch();
+    
+    new Facedoge.Routers.AppRouter;
+    Backbone.history.start();
   }
 };
+

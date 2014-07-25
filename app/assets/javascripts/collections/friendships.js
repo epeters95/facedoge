@@ -4,7 +4,7 @@ Facedoge.Collections.Friendships = Backbone.Collection.extend({
   model: Facedoge.Models.Friendship,
   
   initialize: function (models, options) {
-    this.friend = options.friend
+    this.user = options.user
   }
   
   // confirmedFriends: function(user) {

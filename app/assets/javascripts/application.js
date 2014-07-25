@@ -12,16 +12,17 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require bootstrap
 //= require underscore
 //= require backbone
 //= require facedoge
 //= require_tree ../templates
+//= require_tree ./utils
 //= require_tree ./models
 //= require_tree ./collections
 //= require_tree ./views
 //= require_tree ./routers
+//= require_tree .
 
 
 $(document).ready(function() {

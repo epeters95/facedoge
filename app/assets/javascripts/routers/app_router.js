@@ -1,16 +1,36 @@
 Facedoge.Routers.AppRouter = Backbone.Router.extend({
+  initialize: function() {
+    this.$rootEl = $('.content');
+  },
+  
   routes: {
-    "" : "showFeed"
-    // ""
+    "" : "feedShow",
+    "users/all" : "usersIndex",
+    "users/:id" : "userProfile"
   },
 
-  showFeed: function() {
-    var feed = new Facedoge.Views.Index({
-      // TODO: composite view
-      // model: not needed
-      // collection: will need friendships, recent posts
-    });
+  feedShow: function() {
+    var feed = new Facedoge.Views.Feed();
     this.$rootEl.html(feed.render().$el);
-    
+  },
+  
+  usersIndex: function() {
+    var index = new Facedoge.Views.Index();
+    this.$rootEl.html(index.render().$el);
+  },
+  
+  userProfile: function(id) {    
+    var user;
+    var router = this;
+    Facedoge.allUsers.fetch({
+      success: function() {
+        user = Facedoge.allUsers.get(id);
+        var profile = new Facedoge.Views.UserProfile({
+          model: user
+        });
+        router.$rootEl.html(profile.render().$el);
+      }
+    });
   }
+  
 });
