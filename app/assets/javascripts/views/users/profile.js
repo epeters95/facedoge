@@ -11,7 +11,7 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
   },
   
   events: {
-    "click button.request-btn" : "requestFriend"
+    "click button#request-btn" : "requestFriend"
   },
   
   refreshAll: function() {
@@ -56,9 +56,9 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
   },
   
   requestStatus: function () {
-    if (!this.currentUser.id || !this.model.id) { return "" }
-    if (this.currentUser.id === this.model.id) {
-      return "This is you";
+    if (!this.currentUser.id || !this.model.id ||
+      this.currentUser.id === this.model.id) {
+      return 0;
     }
     if (this.currentUser.isFriendsWith(this.model)) {
       return "Unfriend";
@@ -80,16 +80,22 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
   },
   
   renderButton: function() {
-    var button = $('<button>' + this.requestStatus() + '</button>');
-    button.addClass('request-btn');
-    this.$el.find(".request").append(button);
+    var status = this.requestStatus();
+    if (status) {
+      var button = $('<button>' + status + '</button>');
+      button.attr('id', 'request-btn');
+      this.$el.find("#request").append(button);
+    }
   },
   
   render: function() {
-    var content = this.template({
-      user: this.model
-    });
-    this.$el.html(content);
+    // TODO: clean up some incomplete renders
+    if (this.model.profile()) {
+      var content = this.template({
+        user: this.model
+      });
+      this.$el.html(content);
+    }
     this.renderButton();
     return this;
   },

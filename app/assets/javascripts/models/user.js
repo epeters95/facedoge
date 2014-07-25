@@ -33,20 +33,35 @@ Facedoge.Models.User = Backbone.Model.extend({
     return confirmed;
   },
   
-  // friendships are nested, avoid separate route
-  parse: function(response) {
-    // for now, join in_friendships and out_friendships into single collection...
-    // possible loss of specificity
-    var friendships = [];
-    if (response.in_friendships) {
-      friendships = friendships.concat(response.in_friendships);
-      delete response.in_friendships;
-    }
-    if (response.out_friendships) {
-      friendships = friendships.concat(response.out_friendships);
-      delete response.out_friendships;
-    }
-    this.friendships().set(friendships);
-    return response;
+  profile: function() {
+    return this.get("profile");
   }
+  
+  // friendships are nested, avoid separate route
+  // parse: function(response) {
+ //    // for now, join in_friendships and out_friendships into single collection...
+ //    // possible loss of specificity
+ //
+ //    debugger;
+ //    var friendships = [];
+ //    if (response.in_friendships) {
+ //      friendships = friendships.concat(response.in_friendships);
+ //      delete response.in_friendships;
+ //    }
+ //    if (response.out_friendships) {
+ //      friendships = friendships.concat(response.out_friendships);
+ //      delete response.out_friendships;
+ //    }
+ //    this.friendships().set(friendships);
+ //
+ //    debugger;
+ //    if (response.profile) {
+ //      this.profile.set(response.profile);
+ //      delete response.profile;
+ //    }
+ //
+ //    return response;
+ //  }
 });
+
+
