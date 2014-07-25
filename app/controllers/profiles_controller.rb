@@ -1,19 +1,19 @@
 class ProfilesController < ApplicationController
-  def create
-    # ASSUMING user is logged in before profile details are sent
-    if params[:profile][:user_id] != current_user.id
-      render "Can't create profile for someone else!"
-    else
-      
-      @profile = Profile.new(profile_params)
-      if @profile.save
-        current_user.profile = @profile
-        render json: @profile
-      else
-        render json: @profile.errors.full_messages, status: :unprocessable_entity
-      end
-    end
-  end
+  # def create
+  #   # ASSUMING user is logged in before profile details are sent
+  #   if params[:profile][:user_id] != current_user.id
+  #     render "Can't create profile for someone else!"
+  #   else
+  #
+  #     @profile = Profile.new(profile_params)
+  #     if @profile.save
+  #       current_user.profile = @profile
+  #       render json: @profile
+  #     else
+  #       render json: @profile.errors.full_messages, status: :unprocessable_entity
+  #     end
+  #   end
+  # end
   
   def update
     @profile = Profile.find(params[:id])
@@ -32,7 +32,6 @@ class ProfilesController < ApplicationController
   private
   def profile_params
     params.require(:profile).permit(
-      :user_id,
       :first_name,
       :last_name,
       :name_tag,

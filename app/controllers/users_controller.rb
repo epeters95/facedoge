@@ -1,11 +1,19 @@
 class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
-    if @user.save
-      login!(@user) # TODO: implement
-      redirect_to root_url
+    @profile = Profile.new(profile_params)
+    @user.profile = @profile
+    
+    if @profile.save
+      if @user.save
+        login!(@user)
+        redirect_to root_url
+      else
+        flash[:errors] = @user.errors.full_messages
+        render :new
+      end
     else
-      flash[:errors] = @user.errors.full_messages
+      flash[:errors] = @profile.errors.full_messages
       render :new
     end
   end
@@ -23,7 +31,18 @@ class UsersController < ApplicationController
     # render :show
   end
   
+  private
   def user_params
     params.require(:user).permit(:email, :password)
+  end
+  
+  def profile_params
+    # Apparently rails associates foreign key user_id automatically
+    params.require(:profile).permit(
+      :first_name,
+      :last_name,
+      :name_tag,
+      :bio
+    )
   end
 end

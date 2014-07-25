@@ -1,3 +1,22 @@
 <h1>Sign In</h1>
 
-<%= render partial: "shared/form", locals: { action: :login } %>
+<form action="<%= session_url %>" method="POST" role="form" onsubmit="return checkForm();">
+  <input
+    type="hidden"
+    name="authenticity_token"
+    value="<%= form_authenticity_token %>">
+  
+  <div class="form-group">
+    <label for="user-email">Email</label><br>
+    <input
+      id="user-email"
+      type="text"
+      name="user[email]"
+      value="<%= @user.email if @user%>">
+  </div>
+  <div class="form-group">
+    <label for="user-pwd">Password</label><br>
+    <input type="password" name="user[password]">
+  </div>
+  <input type="submit" class="btn">
+</form>
