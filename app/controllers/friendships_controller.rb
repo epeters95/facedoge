@@ -4,6 +4,7 @@ class FriendshipsController < ApplicationController
     if @friendship.save
 
       render json: @friendship
+    end
   end
 
   private
