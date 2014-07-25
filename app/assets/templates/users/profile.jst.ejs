@@ -1,11 +1,23 @@
-<% var nameString = "" + user.profile().first_name + " " + user.profile().last_name %>
-<h1><%= nameString %>'s Profile Page</h1>
-<br>
-<div id="profile-pic"></div>
-<br>
-<div id="request"></div>
-<br>
-<div id="credentials">
-  <p id="email"><b>Email: </b><%= user.escape("email") %></p>
-  <p id="bio"><b>Bio: </b><%= user.profile().bio %></p>
-</div>
+<% if (user.profile()) { %>
+  
+  <% var nameString = "" + user.profile().first_name %>
+  <% if (user.profile().last_name.length > 0) { %>
+    <% nameString += " " + user.profile().last_name %>
+  <% } %>
+  
+  <h1><%= nameString %>'s Profile Page</h1>
+  <br>
+  <div id="profile-pic"></div>
+  <br>
+  <div id="request"></div>
+  <br>
+  <div id="credentials">
+    <p id="email"><b>Email: </b><%= user.escape("email") %></p>
+    <p id="bio"><b>Bio: </b><%= user.profile().bio %></p>
+  </div>
+  
+<% } else { %>
+  
+  <div class="loading"><i>Loading...</i></div>
+  
+<% } %>

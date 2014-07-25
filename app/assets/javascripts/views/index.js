@@ -4,7 +4,6 @@ Facedoge.Views.Index = Backbone.CompositeView.extend({
   initialize: function() {
     this.listenTo(Facedoge.allUsers, 'add', this.addUserView);
     this.listenTo(Facedoge.allUsers, 'sync', this.render);
-    this.listenTo(Facedoge.allUsers, 'reset', this.render2);
     
     var that = this;
     Facedoge.allUsers.fetch({
@@ -21,12 +20,7 @@ Facedoge.Views.Index = Backbone.CompositeView.extend({
       model: user
     });
     this.addSubview('#users', userView);
-  },
-  
-  render2: function() {
-    this.remove();
-  },
-  
+  },  
   
   render: function() {
     var content = this.template();

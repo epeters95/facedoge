@@ -1,1 +1,14 @@
-<p><a href="/#/users/<%= user.id %>"><%= user.escape("email") %></a><p>
+<% if (user.profile()) { %>
+  
+  <% var nameString = "" + user.profile().first_name %>
+  <% if (user.profile().last_name.length > 0) { %>
+    <% nameString += " " + user.profile().last_name %>
+  <% } %>
+  
+  <p><a href="/#/users/<%= user.id %>"><%= nameString %></a><p>
+    
+<% } else { %>
+  
+  <!-- <div class="loading"><i>Loading...</i></div> -->
+  
+<% } %>
