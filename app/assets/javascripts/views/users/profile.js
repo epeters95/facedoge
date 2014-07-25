@@ -8,6 +8,19 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
     this.listenTo(this.currentUser, 'sync', this.render);
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.model.friendships(), 'remove', this.render);
+    this.listenTo(this.currentUser.posts(), 'add', this.render);
+    
+    var that = this;
+    this.currentUser.fetch({
+      success: function() {
+        var form = new Facedoge.Views.PostNew({
+          model: that.currentUser,
+          collection: that.currentUser.posts()
+        });
+        that.addSubview(".post-new", form);
+      }
+    });
+    
   },
   
   events: {
@@ -15,6 +28,7 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
   },
   
   refreshAll: function() {
+    // TODO: This is terrible
     var that = this;
     this.currentUser.fetch( { success: function() {
       that.currentUser = Facedoge.allUsers.get(that.currentUser.id);
@@ -97,8 +111,8 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
       this.$el.html(content);
     }
     this.renderButton();
+    this.attachSubviews();
     return this;
   },
-  
   
 });

@@ -35,33 +35,41 @@ Facedoge.Models.User = Backbone.Model.extend({
   
   profile: function() {
     return this.get("profile");
-  }
+  },
+  
+  posts: function() {
+    if (!this._posts) {
+      this._posts = new Facedoge.Collections.Posts([], {
+        user: this
+      });
+    }
+    
+    return this._posts;
+  },
   
   // friendships are nested, avoid separate route
-  // parse: function(response) {
- //    // for now, join in_friendships and out_friendships into single collection...
- //    // possible loss of specificity
- //
- //    debugger;
- //    var friendships = [];
- //    if (response.in_friendships) {
- //      friendships = friendships.concat(response.in_friendships);
- //      delete response.in_friendships;
- //    }
- //    if (response.out_friendships) {
- //      friendships = friendships.concat(response.out_friendships);
- //      delete response.out_friendships;
- //    }
- //    this.friendships().set(friendships);
- //
- //    debugger;
- //    if (response.profile) {
- //      this.profile.set(response.profile);
- //      delete response.profile;
- //    }
- //
- //    return response;
- //  }
+  parse: function(response) {
+    // for now, join in_friendships and out_friendships into single collection...
+    // possible loss of specificity
+
+    var friendships = [];
+    if (response.in_friendships) {
+      friendships = friendships.concat(response.in_friendships);
+      delete response.in_friendships;
+    }
+    if (response.out_friendships) {
+      friendships = friendships.concat(response.out_friendships);
+      delete response.out_friendships;
+    }
+    this.friendships().set(friendships);
+    
+    if (response.posts) {
+      this.posts().set(response.posts);
+      delete response.posts;
+    }
+
+    return response;
+  }
 });
 
 

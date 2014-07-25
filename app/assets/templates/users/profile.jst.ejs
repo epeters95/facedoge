@@ -15,6 +15,14 @@
     <p id="email"><b>Email: </b><%= user.escape("email") %></p>
     <p id="bio"><b>Bio: </b><%= user.profile().bio %></p>
   </div>
+  <br>
+  <h3>Posts</h3>
+  <div id="posts">
+  <% _(user.posts().models).each(function(post) { %>
+    <p><%= post.escape("body") %></p>
+  <% }) %>
+  </div>
+  <div class="post-new"></div>
   
 <% } else { %>
   

@@ -30,7 +30,7 @@ module Api
         # TODO: maybe render json containing both?
         render json: @friendship
       else
-        render "Couldn't find friendship to #destroy"
+        render json: "Couldn't find friendship to #destroy"
       end
     end
     

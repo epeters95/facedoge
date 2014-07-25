@@ -3,7 +3,7 @@ Facedoge.Views.Index = Backbone.CompositeView.extend({
   
   initialize: function() {
     this.listenTo(Facedoge.allUsers, 'add', this.addUserView);
-    this.listenTo(Facedoge.allUsers, 'sync', this.render);
+    //this.listenTo(Facedoge.allUsers, 'sync', this.render);
     
     var that = this;
     Facedoge.allUsers.fetch({
