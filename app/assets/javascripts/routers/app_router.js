@@ -25,9 +25,12 @@ Facedoge.Routers.AppRouter = Backbone.Router.extend({
     Facedoge.allUsers.fetch({
       success: function() {
         user = Facedoge.allUsers.get(id);
-        var profile = new Facedoge.Views.UserProfile({
-          model: user
-        });
+        var profile;
+        if (user.id === Facedoge.currentUser.id) {
+          profile = new Facedoge.Views.CurrentProfile();
+        } else {
+          profile = new Facedoge.Views.UserProfile({ model: user });
+        }
         router.$rootEl.html(profile.render().$el);
       }
     });

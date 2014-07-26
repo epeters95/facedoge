@@ -4,25 +4,25 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
   initialize: function() {
     this.currentUser = Facedoge.currentUser();
     
-    //Facedoge.allUsers.get($.cookie('_facedoge_session'));
     this.refreshAll();
     
-    this.listenTo(this.currentUser, 'sync', this.render);
-    this.listenTo(this.model, 'sync', this.render);
-    this.listenTo(this.model.friendships(), 'remove', this.render);
-    this.listenTo(this.currentUser.posts(), 'add', this.render);
+    //this.listenTo(this.currentUser, 'sync', this.render);
+    //this.listenTo(this.model, 'sync', this.render);
+    //this.listenTo(this.model.friendships(), 'remove', this.render);
+    //this.listenTo(Facedoge.currentUser().posts(), 'add', this.render);
     
-    var that = this;
-    this.currentUser.fetch({
-      success: function() {
-        var form = new Facedoge.Views.PostNew({
-          model: that.currentUser,
-          collection: that.currentUser.posts()
-        });
-        that.addSubview(".post-new", form);
-      }
-    });
+    // TODO: wall posting functionality
     
+    // var that = this;
+    // this.currentUser.fetch({
+    //   success: function() {
+    //     var form = new Facedoge.Views.PostNew({
+    //       model: that.currentUser,
+    //       collection: that.currentUser.posts()
+    //     });
+    //     that.addSubview(".post-new", form);
+    //   }
+    // });
   },
   
   events: {
@@ -106,6 +106,14 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
   
   render: function() {
     // TODO: clean up some incomplete renders
+    var that = this;
+    _(this.model.posts().models).each(function(post) {
+      var postView = new Facedoge.Views.PostShow({
+        model: post
+      });
+      that.addSubview(".posts", postView);
+    });
+    
     if (this.model.profile()) {
       var content = this.template({
         user: this.model
