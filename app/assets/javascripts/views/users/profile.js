@@ -2,7 +2,9 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
   template: JST["users/profile"],
   
   initialize: function() {
-    this.currentUser = new Facedoge.currentUser();
+    this.currentUser = Facedoge.currentUser();
+    
+    //Facedoge.allUsers.get($.cookie('_facedoge_session'));
     this.refreshAll();
     
     this.listenTo(this.currentUser, 'sync', this.render);

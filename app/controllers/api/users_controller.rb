@@ -2,7 +2,6 @@ module Api
   class UsersController < ApplicationController
     def show
       @user = User.find(params[:id])
-      #render json: "ass"
       render :show
     end
     
