@@ -10,6 +10,7 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
     //this.listenTo(this.model, 'sync', this.render);
     //this.listenTo(this.model.friendships(), 'remove', this.render);
     //this.listenTo(Facedoge.currentUser().posts(), 'add', this.render);
+    this.listenTo(this.model.posts(), 'add', this.addPostView);
     
     // TODO: wall posting functionality
     
@@ -104,15 +105,24 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
     }
   },
   
+  addPostView: function(post) {
+    var postView = new Facedoge.Views.PostShow({
+      model: post
+    });
+    this.addSubview('.posts', postView);
+  },
+  
   render: function() {
     // TODO: clean up some incomplete renders
     var that = this;
-    _(this.model.posts().models).each(function(post) {
-      var postView = new Facedoge.Views.PostShow({
-        model: post
+    if (this.subviews('.posts').length === 0) {
+      _(this.model.posts().models).each(function(post) {
+        var postView = new Facedoge.Views.PostShow({
+          model: post
+        });
+        that.addSubview(".posts", postView);
       });
-      that.addSubview(".posts", postView);
-    });
+    }
     
     if (this.model.profile()) {
       var content = this.template({
