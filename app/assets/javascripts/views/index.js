@@ -3,16 +3,7 @@ Facedoge.Views.Index = Backbone.CompositeView.extend({
   
   initialize: function() {
     this.listenTo(Facedoge.allUsers, 'add', this.addUserView);
-    //this.listenTo(Facedoge.allUsers, 'sync', this.render);
-    
-    var that = this;
-    Facedoge.allUsers.fetch({
-      success: function() {
-        _(Facedoge.allUsers.models).each(function(user) {
-          that.addUserView(user);
-        })
-      }
-    });
+    this.listenTo(Facedoge.allUsers, 'sync', this.render);
   },
   
   addUserView: function (user) {
@@ -23,6 +14,13 @@ Facedoge.Views.Index = Backbone.CompositeView.extend({
   },  
   
   render: function() {
+    if (this.subviews('#users').length === 0) {
+      var that = this;
+      _(Facedoge.allUsers.models).each(function(user) {
+        that.addUserView(user);
+      });
+    }
+    
     var content = this.template();
     this.$el.html(content);
     
