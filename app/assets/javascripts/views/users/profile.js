@@ -3,14 +3,16 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
   
   initialize: function() {
     this.currentUser = Facedoge.currentUser();
+    this.currentUser.fetch();
+    this.model.fetch();
+    //this.refreshAll();
     
-    this.refreshAll();
-    
-    //this.listenTo(this.currentUser, 'sync', this.render);
-    //this.listenTo(this.model, 'sync', this.render);
-    //this.listenTo(this.model.friendships(), 'remove', this.render);
+    this.listenTo(this.currentUser, 'sync', this.addFriendViews);
+    this.listenTo(this.model, 'sync', this.addFriendViews);
+    this.listenTo(this.model.friendships(), 'remove add', this.render);
+    //this.listenTo(this.currentUser.friendships(), 'sync', this.render);
     //this.listenTo(Facedoge.currentUser().posts(), 'add', this.render);
-    this.listenTo(this.model.posts(), 'add', this.addPostView);
+    //this.listenTo(this.model.posts(), 'add', this.addPostView);
     
     // TODO: wall posting functionality
     
@@ -30,15 +32,19 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
     "click button#request-btn" : "requestFriend"
   },
   
+  render2: function () {
+    console.log("fuck");
+  },
+  
   refreshAll: function() {
     // TODO: This is terrible
     var that = this;
-    this.currentUser.fetch( { success: function() {
-      that.currentUser = Facedoge.allUsers.get(that.currentUser.id);
-      that.currentUser.fetch( { success: function() {
-        that.render();
-      }});
-    }});
+    // this.currentUser.fetch( { success: function() {
+    //   that.currentUser = Facedoge.allUsers.get(that.currentUser.id);
+    //   that.currentUser.fetch( { success: function() {
+    //     that.render();
+    //   }});
+    // }});
     this.model.fetch();
   },
   
@@ -49,7 +55,14 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
         in_friend_id: this.model.id
       });
       friendship.destroy();
-      this.refreshAll();
+      this.model.fetch();
+      this.currentUser.fetch();
+      var friendView;
+      var that = this;
+      _(this.subviews('.friends')).each(function(view) {
+        if (view.model.id === that.currentUser.id) { friendView = view }
+      });
+      this.removeSubview('.friends', friendView);
       break;
     case "Confirm friends":
       var friendship = new Facedoge.Models.Friendship({
@@ -57,7 +70,8 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
         out_friend_id: this.currentUser.id
       });
       friendship.save();
-      this.refreshAll();
+      this.model.fetch();
+      this.currentUser.fetch();
       break;
     case "Add friend":
       var friendship = new Facedoge.Models.Friendship({
@@ -65,7 +79,8 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
         out_friend_id: this.currentUser.id
       });
       friendship.save();
-      this.refreshAll();
+      this.model.fetch();
+      this.currentUser.fetch();
       break;
     default:
       console.log("you fucked up somewhere");
@@ -101,7 +116,7 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
     if (status) {
       var button = $('<button>' + status + '</button>');
       button.attr('id', 'request-btn');
-      this.$el.find("#request").append(button);
+      this.$el.find("#request").html(button);
     }
   },
   
@@ -110,6 +125,25 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
       model: post
     });
     this.addSubview('.posts', postView);
+    console.log("post view added");
+  },
+  
+  addFriendViews: function() {
+    var that = this;
+    _(this.model.connectedFriendIds()).each(function(friendId) {
+      var user = Facedoge.allUsers.get(friendId);
+      var exists = false;
+      _(that.subviews('.friends')).each(function(view) {
+        if (view.model.id === friendId) { exists = true }
+      });
+      if (!exists) {
+        var friendView = new Facedoge.Views.UserShow({
+          model: user
+        });
+        that.addSubview('.friends', friendView);
+      }
+    });
+    this.renderButton();
   },
   
   render: function() {
@@ -133,6 +167,6 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
     this.renderButton();
     this.attachSubviews();
     return this;
-  },
+  }
   
 });

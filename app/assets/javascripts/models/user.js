@@ -13,7 +13,7 @@ Facedoge.Models.User = Backbone.Model.extend({
   },
   
   isFriendsWith: function(user) {
-    return (this.connectedFriendIds().indexOf(user.id) > -1)
+    return (this.connectedFriendIds().indexOf(user.id) > -1);
   },
   
   // all connected friendships

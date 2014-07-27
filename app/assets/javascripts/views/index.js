@@ -7,11 +7,12 @@ Facedoge.Views.Index = Backbone.CompositeView.extend({
   },
   
   addUserView: function (user) {
+    user.fetch();
     var userView = new Facedoge.Views.UserShow({
       model: user
     });
     this.addSubview('#users', userView);
-  },  
+  },
   
   render: function() {
     // Users not rendered twice
