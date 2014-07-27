@@ -14,6 +14,7 @@ Facedoge.Views.Index = Backbone.CompositeView.extend({
   },  
   
   render: function() {
+    // Users not rendered twice
     if (this.subviews('#users').length === 0) {
       var that = this;
       _(Facedoge.allUsers.models).each(function(user) {
