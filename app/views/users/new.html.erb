@@ -30,18 +30,20 @@
       name="profile[last_name]">
   </div>
   
-  <div class="form-group">
-    <label for="profile-nametag">Nametag</label><br>
+  <!-- <div class="form-group">
+    <label for="profile-nametag">Url</label><br>
     <input
       id="profile-nametag"
       type="text"
       name="profile[name_tag]">
-  </div>
+  </div> -->
     
   <div class="form-group">
     <label for="user-pwd">Password</label><br>
     <input type="password" name="user[password]">
   </div>
+  
+  <input type="hidden" name="profile[bio]" value="<%= simple_format("much noob \n bio so default") %>">
   
   <input type="submit" class="btn">
 </form>

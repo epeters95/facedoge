@@ -28,8 +28,6 @@ Facedoge.Views.CurrentProfile = Backbone.CompositeView.extend({
     
   render: function() {
     // only show current user posts (no wall posting yet)
-    // var that = this;
-    // console.log('rende)')
     var that = this;
     if (this.subviews('.posts').length === 0) {
       _(this.currentUser.posts().models).each(function(post) {
