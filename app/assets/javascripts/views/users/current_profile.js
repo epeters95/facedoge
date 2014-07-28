@@ -2,6 +2,7 @@ Facedoge.Views.CurrentProfile = Backbone.CompositeView.extend({
   template: JST["users/profile"],
   
   initialize: function() {
+    console.log("init");
     this.currentUser = Facedoge.currentUser();
     this.listenTo(this.currentUser, 'sync', this.addFriendViews);
     this.listenTo(this.currentUser.friendships(), 'remove add', this.render);
@@ -62,7 +63,6 @@ Facedoge.Views.CurrentProfile = Backbone.CompositeView.extend({
       user: Facedoge.currentUser()
     });
     this.$el.html(content);
-    debugger;
     this.attachSubviews();
     return this;
   }

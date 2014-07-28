@@ -25,6 +25,7 @@ Facedoge.Routers.AppRouter = Backbone.Router.extend({
     Facedoge.allUsers.fetch({
       success: function() {
         user = Facedoge.allUsers.get(id);
+        user.fetch();
         var profile;
         if (user.id === Facedoge.currentUser().id) {
           profile = new Facedoge.Views.CurrentProfile();
