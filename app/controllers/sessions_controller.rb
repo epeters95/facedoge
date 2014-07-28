@@ -5,20 +5,24 @@ class SessionsController < ApplicationController
       params[:user][:password])
     if @user
       login!(@user)
-      redirect_to user_url(@user)
+      redirect_to root_url
     else
-      flash.now[:errors] = ["Wrong username or password."]
-      render :new
+      flash[:errors] = ["Wrong username or password."]
+      redirect_to :back
     end
   end
   
   def new
-    @user = User.new
-    render :new
+    if signed_in?
+      redirect_to root_url
+    else
+      @user = User.new
+      render :new
+    end
   end
   
   def destroy
     logout!
-    redirect_to new_session_url
+    redirect_to new_user_url
   end
 end

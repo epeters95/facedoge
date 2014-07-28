@@ -7,21 +7,50 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="">facedoge</a>
     <ul class="nav navbar-nav">
-      <li><a href="/#/users/all">All Users</a></li>
+      
+    <% if signed_in? %>
+    
+      <p class="navbar-text">Hi <%= current_user.profile.first_name %>!</p>
+      
+      
+      
+    <% else %>
+    
+      <form class="navbar-form navbar-left" action="/session" method="POST">
+        <div class="form-group">
+          <input type="text" name="user[email]" class="form-control" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <input type="password" name="user[password]" class="form-control" placeholder="Password">
+        </div>
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <button type="submit" class="btn btn-default">Log In</button>
+      </form>
+      
+      
+      
+    <% end %>
+    
     </ul>
   </div>
+  
+  
 
   <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav">
-    <% if signed_in? %>
-      <p class="navbar-text">Signed in as <%= current_user.email %></p>
-      <li><%= button_to "Sign out", session_url, method: :delete, class: "btn btn-primary navbar-btn" %></li>
-    <% else %>
-      <li><%= link_to "Log in", new_session_url %></li>
-      <li><%= link_to "Sign up", new_user_url %></li>
-    <% end %>
+    <ul class="nav navbar-nav nav-cushion">
+      <li><a class="navbar-brand" href="/#"><%= image_tag("logo-xs.png") %></a></li>
+      <% if signed_in? %>
+      <li class="dropdown">
+        <a class="dropdown-toggle" type="button" id="options" data-toggle="dropdown">
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="options">
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="/#/users/all">All Users</a></li>
+          <li><%= link_to "Sign out", session_url, method: :delete %></li>
+        </ul>
+      </li>
+      <% end %>
     </ul>
   </div>
 </div>

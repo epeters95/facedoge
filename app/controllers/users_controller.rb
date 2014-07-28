@@ -21,8 +21,12 @@ class UsersController < ApplicationController
   end
   
   def new
-    @user = User.new
-    render :new
+    if signed_in?
+      redirect_to root_url
+    else
+      @user = User.new
+      render :new
+    end
   end
   
   def show

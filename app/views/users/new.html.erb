@@ -1,49 +1,57 @@
-<h1>Sign Up</h1>
+<div class="row">
 
-<form action="<%= users_url %>" method="POST" role="form" onsubmit="return checkForm();">
-  <input
-    type="hidden"
-    name="authenticity_token"
-    value="<%= form_authenticity_token %>">
-  
-  <div class="form-group">
-    <label for="user-email">Email</label><br>
+<div class="col-xs-2"></div>
+
+<div class="col-xs-3">
+  <h1>Sign Up</h1>
+
+  <form action="<%= users_url %>" method="POST" role="form" onsubmit="return checkForm();">
     <input
-      id="user-email"
-      type="text"
-      name="user[email]">
-  </div>
+      type="hidden"
+      name="authenticity_token"
+      value="<%= form_authenticity_token %>">
   
-  <div class="form-group">
-    <label for="profile-firstname">First Name</label><br>
-    <input
-      id="profile-firstname"
-      type="text"
-      name="profile[first_name]">
-  </div>
+    <div class="form-group">
+      <label for="user-email">Email</label><br>
+      <input
+        id="user-email"
+        type="text"
+        name="user[email]">
+    </div>
   
-  <div class="form-group">
-    <label for="profile-lastname">Last Name</label><br>
-    <input
-      id="profile-lastname"
-      type="text"
-      name="profile[last_name]">
-  </div>
+    <div class="form-group">
+      <label for="profile-firstname">First Name</label><br>
+      <input
+        id="profile-firstname"
+        type="text"
+        name="profile[first_name]">
+    </div>
   
-  <!-- <div class="form-group">
-    <label for="profile-nametag">Url</label><br>
-    <input
-      id="profile-nametag"
-      type="text"
-      name="profile[name_tag]">
-  </div> -->
+    <div class="form-group">
+      <label for="profile-lastname">Last Name</label><br>
+      <input
+        id="profile-lastname"
+        type="text"
+        name="profile[last_name]">
+    </div>
+  
+    <!-- <div class="form-group">
+      <label for="profile-nametag">Url</label><br>
+      <input
+        id="profile-nametag"
+        type="text"
+        name="profile[name_tag]">
+    </div> -->
     
-  <div class="form-group">
-    <label for="user-pwd">Password</label><br>
-    <input type="password" name="user[password]">
-  </div>
+    <div class="form-group">
+      <label for="user-pwd">Password</label><br>
+      <input type="password" name="user[password]">
+    </div>
   
-  <input type="hidden" name="profile[bio]" value="<%= simple_format("much noob \n bio so default") %>">
+    <input type="hidden" name="profile[bio]" value="<%= simple_format("much noob \n bio so default") %>">
   
-  <input type="submit" class="btn">
-</form>
+    <input type="submit" class="btn">
+  </form>
+</div>
+
+</div>
