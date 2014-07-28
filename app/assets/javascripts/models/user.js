@@ -65,6 +65,14 @@ Facedoge.Models.User = Backbone.Model.extend({
     
     if (response.posts) {
       this.posts().set(response.posts);
+      var i = 0;
+      _(this.posts().models).each(function(post) {
+        if (response.posts[i].comments) {
+          post.comments().set(response.posts[i].comments);
+          delete response.posts[i].comments;
+        }
+        i++;
+      });
       delete response.posts;
     }
 

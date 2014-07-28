@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :out_friendships, class_name: "Friendship", foreign_key: :out_friend_id
   has_many :in_friendships, class_name: "Friendship", foreign_key: :in_friend_id
   has_many :posts
+  has_many :comments
   
   validates :email, :password_digest, :session_token, presence: true
   validates :email, uniqueness: true

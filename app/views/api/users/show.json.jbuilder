@@ -13,5 +13,8 @@ json.out_friendships @user.out_friendships do |out_friendship|
 end
 
 json.posts @user.posts do |post|
+  json.comments post.comments do |comment|
+    json.extract! comment, :id, :user_id, :post_id, :body
+  end
   json.extract! post, :id, :user_id, :body, :created_at, :updated_at
 end

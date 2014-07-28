@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :friendships, only: [:create, :show, :destroy]
     resource :current_user, only: [:show]
     resources :posts, only: [:create, :show, :destroy] # Add edit functionality later
-    # resources :comments
+    resources :comments, only: [:create, :show, :destroy]
   end
   
   root to: "static_pages#root"
