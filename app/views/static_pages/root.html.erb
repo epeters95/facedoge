@@ -1,3 +1,9 @@
-<script>
-  $(Facedoge.initialize);
-</script>
+<% if signed_in? %>
+  <script>
+    $(Facedoge.initialize);
+  </script>
+<% else %>
+  <script>
+    window.location.href="<%= new_user_url %>";
+  </script>
+<% end %>

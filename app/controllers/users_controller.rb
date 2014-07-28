@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :login_required, only: :show
+  
   def create
     @user = User.new(user_params)
     @profile = Profile.new(profile_params)

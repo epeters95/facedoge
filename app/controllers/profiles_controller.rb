@@ -1,4 +1,6 @@
 class ProfilesController < ApplicationController
+  before_filter :login_required, only: :update
+  
   # def create
   #   # ASSUMING user is logged in before profile details are sent
   #   if params[:profile][:user_id] != current_user.id
