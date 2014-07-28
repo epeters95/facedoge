@@ -15,7 +15,12 @@
  */
 @import "bootstrap";
 
-.navbar {
+body {
+  background-color: #EFEFEF;
+}
+
+// navbar
+.header > .navbar {
   background-color: #e8be62;
   text-color: #ffffff;
 }
@@ -34,11 +39,54 @@
   color: #ffffff;
 }
 
+
+// sidebar
+#sidebar-wrapper {
+  position: fixed;
+  top: -50px;
+  width: 250px;
+  left: 250px;
+  margin-left: -250px;
+  height: 120%;
+  overflow-y: auto;
+  background-color: #CCCCCC;
+  box-shadow: 8px 0px 35px #BBBBBB;
+}
+
+#content-wrapper {
+  width: 100%;
+}
+
+.sidebar > nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  margin-top: -100px;
+  margin: 0;
+  padding-top: 150px;
+}
+
+.sidebar > nav > ul > li {
+  padding: 10px;
+}
+
+
+// general site look
 a {
   color: #b5852d;
 }
 
-a:hover{
+a:hover {
   color: #d7a945;
   text-decoration: none;
 }
+
+textarea {
+  resize: none;
+}
+
+
+
+
+
+

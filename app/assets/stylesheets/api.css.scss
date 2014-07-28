@@ -1,3 +1,24 @@
 // Place all the styles related to the api controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+// posts
+.post-view {
+  margin: 38px 25px;
+  padding: 10px;
+  background-color: #F4F4F4;
+  border-radius: 6px;
+  box-shadow: 0px 0px 26px 8px #CFCFCF;
+}
+
+.post-view > *:not(:first-child) {
+  margin-left: 30px;
+  background-color: #F4F4F4;
+}
+
+
+// comments
+.post-view > div.splitter {
+  margin-left: 0px;
+  border-top: thin solid #888888;
+}
