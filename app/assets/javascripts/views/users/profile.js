@@ -2,12 +2,12 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
   template: JST["users/profile"],
   
   initialize: function() {
-    console.log("init other");
     this.currentUser = Facedoge.currentUser();
     this.currentUser.fetch();
+    this.sticky = "posts";
     //this.refreshAll();
     
-    this.listenTo(this.currentUser, 'sync', this.addFriendViews);
+    //this.listenTo(this.currentUser, 'sync', this.addFriendViews);
     this.listenTo(this.model, 'sync', this.addFriendViews);
     this.listenTo(this.model.friendships(), 'remove add', this.render);
     //this.listenTo(this.currentUser.friendships(), 'sync', this.render);
@@ -15,22 +15,55 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
     //this.listenTo(this.model.posts(), 'add', this.addPostView);
     
     // TODO: wall posting functionality
-    
     var that = this;
     this.model.fetch({
       success: function() {
-        var form = new Facedoge.Views.PostNew({
-          model: that.currentUser,
-          collection: that.currentUser.posts()
-        });
-        that.addSubview(".post-new", form);
         that.render();
       }
     });
+    this.$el.find($('li.posts-link')).removeClass('active');
+    this.$el.find($('li.friends-link')).removeClass('active');
   },
   
   events: {
-    "click button#request-btn" : "requestFriend"
+    "click button#request-btn" : "requestFriend",
+    "click li.friends-link" : "switchFriends",
+    "click li.posts-link" : "switchPosts"
+  },
+  
+  switchFriends: function() {
+    
+    var $friendsLink = this.$el.find($('li.friends-link'));
+    var $postsLink = this.$el.find($('li.posts-link'));
+    
+    if (!$friendsLink.hasClass('active')) {
+      this.sticky = "friends";
+      var target = this.$el.find($('.sticky-target'));
+      target.removeClass('posts');
+      target.addClass('friends');
+      
+      $friendsLink.addClass('active');
+      $postsLink.removeClass('active');
+    }
+    
+    this.render();
+  },
+  
+  switchPosts: function() {
+    var $friendsLink = this.$el.find($('li.friends-link'));
+    var $postsLink = this.$el.find($('li.posts-link'));
+    
+    if (!$postsLink.hasClass('active')) {
+      this.sticky = "posts";
+      var target = $('.sticky-target');
+      target.removeClass('friends');
+      target.addClass('posts');
+      
+      $postsLink.addClass('active');
+      $friendsLink.removeClass('active');
+    }
+    
+    this.render();
   },
   
   refreshAll: function() {
@@ -122,7 +155,6 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
       model: post
     });
     this.addSubview('.posts', postView);
-    console.log("post view added");
   },
   
   addFriendViews: function() {
@@ -137,7 +169,9 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
         var friendView = new Facedoge.Views.UserShow({
           model: user
         });
+        user.fetch();
         that.addSubview('.friends', friendView);
+        that.$el.find($('.friends')).append('<br>');
       }
     });
     this.renderButton();
@@ -156,12 +190,21 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
     }
     if (this.model.profile()) {
       var content = this.template({
-        user: this.model
+        user: this.model,
+        sticky: this.sticky
       });
       this.$el.html(content);
+      var $filePickerInput = this.$("input[type=filepicker]");
+      filepicker.constructWidget($filePickerInput[0]);
     }
+    this.$el.find($('li.posts-link')).removeClass('active');
+    this.$el.find($('li.friends-link')).removeClass('active');
+    this.$el.find($("li." + this.sticky + "-link")).addClass('active');
     this.renderButton();
     this.attachSubviews();
+    
+    
+        
     return this;
   }
   

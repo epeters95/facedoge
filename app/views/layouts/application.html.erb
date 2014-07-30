@@ -5,20 +5,25 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  
+  <script type="text/javascript" src="http://api.filepicker.io/v1/filepicker.js"></script>
+  <script>
+    filepicker.setKey("APfLg3iZUTanSEgY5zAsNz");
+  </script>
+  
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 </head>
 <body>
   <div class="header">
     <%= render "layouts/header" %>
   </div>
   
-  
-  <div class="container">
+  <div class="midsection">
       <% if signed_in? %>
       <div id="sidebar-wrapper">
         <div class="sidebar">
           <%= render "layouts/sidebar" %>
         </div>
-        <style> #content-wrapper { padding-left: 250px; } </style>
       </div>
       <% end %> 
       <div id="content-wrapper">
@@ -27,6 +32,5 @@
         </div>
       </div>
   </div>
-  
 </body>
 </html>

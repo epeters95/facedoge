@@ -1,12 +1,11 @@
-Facedoge.Views.CurrentProfile = Backbone.CompositeView.extend({
-  template: JST["users/profile"],
+Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
   
   initialize: function() {
-    console.log("init");
     this.currentUser = Facedoge.currentUser();
     this.listenTo(this.currentUser, 'sync', this.addFriendViews);
     this.listenTo(this.currentUser.friendships(), 'remove add', this.render);
     this.listenTo(this.currentUser.posts(), 'add', this.addPostView);
+    this.sticky = "posts";
     
     var that = this;
     this.currentUser.fetch({
@@ -21,6 +20,25 @@ Facedoge.Views.CurrentProfile = Backbone.CompositeView.extend({
     });
   },
   
+  events: {
+    "click button#request-btn" : "requestFriend",
+    "click li.friends-link" : "switchFriends",
+    "click li.posts-link" : "switchPosts",
+    "click button#edit" : "switchEdit",
+    "click button#save" : "saveEdit"
+  },
+  
+  switchEdit: function() {
+    this.template = JST["users/edit_profile"];
+    this.render();
+  },
+  
+  saveEdit: function() {
+    this.template = JST["users/profile"],
+    // save values
+    this.render();
+  },
+  
   addPostView: function(post) {
     var postView = new Facedoge.Views.PostShow({
       model: post
@@ -32,6 +50,7 @@ Facedoge.Views.CurrentProfile = Backbone.CompositeView.extend({
     var that = this;
     _(this.currentUser.connectedFriendIds()).each(function(friendId) {
       var user = Facedoge.allUsers.get(friendId);
+      
       user.fetch();
       var exists = false;
       _(that.subviews('.friends')).each(function(view) {
@@ -60,9 +79,16 @@ Facedoge.Views.CurrentProfile = Backbone.CompositeView.extend({
     }
     
     var content = this.template({
-      user: Facedoge.currentUser()
-    });
+      user: this.currentUser,
+      sticky: this.sticky
+    });    
     this.$el.html(content);
+    
+    this.$el.find($('.name-header')).append('<button id="edit">Edit Profile</button></h1>');
+    
+    this.$el.find($('li.posts-link')).removeClass('active');
+    this.$el.find($('li.friends-link')).removeClass('active');
+    this.$el.find($("li." + this.sticky + "-link")).addClass('active');
     this.attachSubviews();
     return this;
   }

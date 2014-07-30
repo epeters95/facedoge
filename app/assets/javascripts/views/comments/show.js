@@ -3,6 +3,7 @@ Facedoge.Views.CommentShow = Backbone.CompositeView.extend({
   
   initialize: function() {
     var user = Facedoge.allUsers.get(this.model.get("user_id"));
+    user.fetch();
     var userView = new Facedoge.Views.UserShow({ model: user });
     this.addSubview('.commenting-user', userView);
   },

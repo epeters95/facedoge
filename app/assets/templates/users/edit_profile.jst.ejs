@@ -17,28 +17,32 @@
       <div class="sticky-alias"></div>
     </div>
     <div class="right-bar">
-      <% var nameString = "" + user.profile().first_name %>
-      <% if (user.profile().last_name.length > 0) { %>
-        <% nameString += " " + user.profile().last_name %>
-      <% } %>
-      
-      <div class="name-header">
-        <h1><%= nameString %></h1>
-      </div>
-      
       <br>
-      <div id="request"></div>
+      <br>
+      <p id="first-name"><b>First name: </b>
+        <input type="text" name="profile[first_name]" value="<%= user.profile().first_name %>">
+      </p>
+      <p id="last-name"><b>Last name: </b>
+        <input type="text" name="profile[last_name]" value="<%= user.profile().last_name %>">
+      </p>
       <br>
       <div id="credentials">
-        <p id="email"><b>Email: </b><%= user.escape("email") %></p>
+        <p id="email"><b>Email: </b>
+          <input type="text" name="user[email]" value="<%= user.escape("email") %>">
+        </p>
     
-        <p id="bio"><b>Bio: </b><%= user.profile().bio %></p>
+        <p id="bio"><b>Bio: </b>
+          <input type="text" name="profile[bio]" value="<%= user.profile().bio %>">
+        </p>
       </div>
+      <br>
+      <button id="save">Save changes</button>
       <br>
       <div class="<%= "sticky-target " + sticky %>"></div>
       <br>
       <div class="post-new"></div>
       
+      <input type="filepicker" id="widget" data-fp-mimetype="image/*">
     </div>
     
     <script>

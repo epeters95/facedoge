@@ -5,13 +5,13 @@
 // posts
 .post-view {
   margin: 38px 25px;
-  padding: 10px;
+  padding: 20px;
   background-color: #F4F4F4;
   border-radius: 6px;
   box-shadow: 0px 0px 26px 8px #CFCFCF;
 }
 
-.post-view > *:not(:first-child) {
+.post-view > .comments {
   margin-left: 30px;
   background-color: #F4F4F4;
 }
@@ -21,4 +21,13 @@
 .post-view > div.splitter {
   margin-left: 0px;
   border-top: thin solid #888888;
+}
+
+.sticky-target.friends {
+  background-color: #DDDDDD;
+  border-radius: 6px;
+  padding-left: 35px;
+  padding-top: 35px;
+  height: 100%;
+  min-height: 300px;
 }

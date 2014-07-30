@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.cookie.js
+//= require jquery.cookie
 //= require bootstrap
 //= require underscore
 //= require backbone
@@ -27,6 +27,7 @@
 
 
 $(document).ready(function() {
+    filepicker.setKey("APfLg3iZUTanSEgY5zAsNz");
 });
 
 var checkForm = function() {

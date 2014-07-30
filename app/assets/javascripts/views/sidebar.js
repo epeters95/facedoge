@@ -18,6 +18,7 @@ Facedoge.Views.Sidebar = Backbone.CompositeView.extend({
         if (view.model.id === friendId) { exists = true }
       });
       if (!exists) {
+        user.fetch();
         var friendView = new Facedoge.Views.UserShow({
           model: user
         });
