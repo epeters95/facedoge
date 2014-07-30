@@ -34,8 +34,16 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
   },
   
   saveEdit: function() {
-    this.template = JST["users/profile"],
-    // save values
+    this.template = JST["users/profile"];
+    this.currentUser.save({
+      email: this.$('#email').val(),
+      profile: {
+        first_name: this.$('#first-name').val(),
+        last_name: this.$('#last-name').val(),
+        bio: this.$('#bio').val(),
+        user_id: this.currentUser.id
+      }
+    }, {patch: true, wait: true});
     this.render();
   },
   

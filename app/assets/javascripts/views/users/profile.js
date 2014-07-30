@@ -194,8 +194,8 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
         sticky: this.sticky
       });
       this.$el.html(content);
-      var $filePickerInput = this.$("input[type=filepicker]");
-      filepicker.constructWidget($filePickerInput[0]);
+      // var $filePickerInput = this.$("input[type=filepicker]");
+//       filepicker.constructWidget($filePickerInput[0]);
     }
     this.$el.find($('li.posts-link')).removeClass('active');
     this.$el.find($('li.friends-link')).removeClass('active');

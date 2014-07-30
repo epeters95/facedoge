@@ -19,20 +19,20 @@
     <div class="right-bar">
       <br>
       <br>
-      <p id="first-name"><b>First name: </b>
-        <input type="text" name="profile[first_name]" value="<%= user.profile().first_name %>">
+      <p><b>First name: </b>
+        <input type="text" id="first-name" name="profile[first_name]" value="<%= user.profile().first_name %>">
       </p>
-      <p id="last-name"><b>Last name: </b>
-        <input type="text" name="profile[last_name]" value="<%= user.profile().last_name %>">
+      <p><b>Last name: </b>
+        <input type="text" id="last-name" name="profile[last_name]" value="<%= user.profile().last_name %>">
       </p>
       <br>
       <div id="credentials">
-        <p id="email"><b>Email: </b>
-          <input type="text" name="user[email]" value="<%= user.escape("email") %>">
+        <p><b>Email: </b>
+          <input type="text" id="email" name="user[email]" value="<%= user.escape("email") %>">
         </p>
     
-        <p id="bio"><b>Bio: </b>
-          <input type="text" name="profile[bio]" value="<%= user.profile().bio %>">
+        <p><b>Bio: </b>
+          <input type="text" id="bio" name="profile[bio]" value="<%= user.profile().bio %>">
         </p>
       </div>
       <br>

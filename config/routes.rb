@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :profiles, only: [:create, :edit, :update]
   
   namespace :api, defaults: { format: :json } do
-    resources :users, only: [:show, :index]
+    resources :users, only: [:show, :index, :update]
     resources :friendships, only: [:create, :show, :destroy]
     resource :current_user, only: [:show]
     resources :posts, only: [:create, :show, :destroy] # Add edit functionality later
