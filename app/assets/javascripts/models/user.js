@@ -47,6 +47,16 @@ Facedoge.Models.User = Backbone.Model.extend({
     return this._posts;
   },
   
+  images: function() {
+    if (!this._images) {
+      this._images = new Facedoge.Collections.Images([], {
+        user: this
+      });
+    }
+    
+    return this._images;
+  },
+  
   // friendships are nested, avoid separate route
   parse: function(response) {
     // for now, join in_friendships and out_friendships into single collection...

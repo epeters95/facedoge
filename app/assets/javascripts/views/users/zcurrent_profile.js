@@ -25,7 +25,30 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
     "click li.friends-link" : "switchFriends",
     "click li.posts-link" : "switchPosts",
     "click button#edit" : "switchEdit",
-    "click button#save" : "saveEdit"
+    "click button#save" : "saveEdit",
+    "click button#widget" : "savePhoto"
+  },
+  
+  savePhoto: function() {
+    var that = this;
+    filepicker.pick({
+        mimetypes: ['image/*'],
+        container: 'modal',
+        services:['COMPUTER', 'IMAGE_SEARCH'],
+      },
+      function(InkBlob){
+        var image = new Facedoge.Models.Image({
+          file_url: InkBlob.url,
+          user_id: that.currentUser.id,
+          profile: true
+        });
+        that.currentUser.images().create(image);
+        that.currentUser.fetch();
+      },
+      function(FPError){
+        console.log(FPError.toString());
+      }
+    );
   },
   
   switchEdit: function() {
@@ -73,6 +96,12 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
     });
     this.render();
   },
+  
+  renderProfilePic: function() {
+    var $div = this.$('div#profile-pic');
+    var pic = this.currentUser.images().findWhere({ profile: true });
+    if (pic) { $div.html('<img src="' + pic.get("file_url") + '">'); }
+  },
     
   render: function() {
     // only show current user posts (no wall posting yet)
@@ -91,6 +120,13 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
       sticky: this.sticky
     });    
     this.$el.html(content);
+    
+    this.renderProfilePic();
+    
+    if (this.currentUser.profile()) {
+      // var $filePickerInput = this.$("input[type=filepicker]");
+//       filepicker.constructWidget($filePickerInput[0]);
+    }
     
     this.$el.find($('.name-header')).append('<button id="edit">Edit Profile</button></h1>');
     

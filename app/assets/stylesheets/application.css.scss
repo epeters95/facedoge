@@ -18,6 +18,7 @@
 body {
   background-color: #EFEFEF;
   font-family: 'Ubuntu', sans-serif;
+  font-size: 12pt;
 }
 
 // navbar
@@ -51,24 +52,23 @@ body {
 
 #sidebar-wrapper {
   float: left;
-  width: 200px;
+  width: 275px;
   height: 1000px;
   position: fixed;
   top: -50px;
-  min-width: 180px;
-  max-width: 300px;
   overflow-y: auto;
   background-color: #CCCCCC;
   box-shadow: 8px 0px 35px #BBBBBB;
 }
 
 #content-wrapper {
-  width: 80%;
+  width: 90%;
   position: relative;
   float: left;
   overflow: auto;
   margin-left: 230px;
-  padding-left: 3%;
+  padding-left: 15%;
+  padding-right: 15%;
 }
 
 .sidebar > nav {
@@ -76,7 +76,7 @@ body {
   margin-top: -100px;
   margin: 0;
   padding-top: 100px;
-  padding-left: 15px;
+  padding-left: 60px;
 }
 
 .sidebar > nav > ul > li {
@@ -108,13 +108,14 @@ div.left-bar {
   position: relative;
   float: left;
   width: 180px;
+  margin-left: -60px;
+  margin-right: 20px;
 }
 
 div.right-bar {
   position: relative;
   overflow: auto;
-  padding-right: 5%;
-  padding-left: 5%;
+  padding-left: 10%;
 }
 
 ul.sticky-links > li > a {
