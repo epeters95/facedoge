@@ -18,3 +18,7 @@ json.posts @user.posts do |post|
   end
   json.extract! post, :id, :user_id, :body, :created_at, :updated_at
 end
+
+json.images @user.images do |image|
+  json.extract! image, :id, :file_url, :user_id, :profile, :created_at, :updated_at
+end

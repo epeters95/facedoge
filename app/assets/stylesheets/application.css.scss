@@ -87,6 +87,7 @@ body {
 // general site look
 a {
   color: #b5852d;
+  font-size: 13pt;
 }
 
 a:hover {
@@ -114,8 +115,7 @@ div.left-bar {
 
 div.right-bar {
   position: relative;
-  overflow: auto;
-  padding-left: 10%;
+  padding-left: 260px;
 }
 
 ul.sticky-links > li > a {
@@ -131,15 +131,65 @@ ul.sticky-links > li.active > a {
   color: #FFFFFF;
   border-radius: 3px;
   background-color: #DDDDDD;
-  
 }
 
-div.name-header {
+img.profile {
+  max-width: 290px;
+  min-width: 290px;
 }
 
-div.edit-button {
+div.profile-thumb {
+  width: 75px;
+  height: 35px;
+  display: inline-block;
 }
 
+div.profile-thumb img {
+  min-width: 75px;
+  max-width: 75px;
+  position: absolute;
+}
 
+div.profile-thumb > a {
+  display: block;
+  width: 100px;
+  height: 100px;
+}
 
+div.profile-show {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 8px;
+  margin-bottom: 60px;
+}
 
+div.post-body {
+  position: relative;
+  left: 95px;
+  margin-top: -60px;
+}
+
+div.comment-body {
+  position: relative;
+  margin-top: -60px;
+  padding-right: 100px;
+  left: 95px;
+}
+
+div.comment-wrapper {
+  margin-left: 52px;
+}
+
+div.comment-form {
+  margin-left: 80px;
+  padding-right: 5%;
+}
+
+div.comment-form textarea {
+  width: 100%;
+  border-color: #FFFFFF;
+}
+
+div.comment-form input {
+  float: right;
+}

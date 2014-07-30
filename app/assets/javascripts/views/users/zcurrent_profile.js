@@ -100,7 +100,28 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
   renderProfilePic: function() {
     var $div = this.$('div#profile-pic');
     var pic = this.currentUser.images().findWhere({ profile: true });
-    if (pic) { $div.html('<img src="' + pic.get("file_url") + '">'); }
+    if (pic) { $div.html('<img class="profile" src="' + pic.get("file_url") + '">'); }
+    var img = $("img.profile")[0];
+    var img_width, img_height;
+    var that = this;
+    $("<img/>") // Make in memory copy of image to avoid css issues
+      .attr("src", $(img).attr("src"))
+      .load(function() {
+        img_width = this.width;   // Note: $(this).width() will not
+        img_height = this.height; // work for in memory images.
+        that.stickyLinks(img_height * 290/img_width);
+      });
+  },
+  
+  stickyLinks: function(offset) {
+    var stickyHeaderTop = offset + 52;
+    $(document).scroll(function() {
+      if( $(document).scrollTop() > stickyHeaderTop ) {
+        $('.sticky-links').css({position: 'fixed', top: '100px'});
+      } else {
+        $('.sticky-links').css({position: 'static', top: '500px'});
+      }
+    });
   },
     
   render: function() {

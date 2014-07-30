@@ -24,14 +24,11 @@ Facedoge.Views.Feed = Backbone.CompositeView.extend({
     this.user.fetch({ success: function() {
       _(that.user.connectedFriendIds()).each(function(friendId) {
         var user = Facedoge.allUsers.get(friendId);
-        if (user) {
-          user.fetch({ success: function() {
-            _(user.posts().models).each(function(post) {
-              that.posts.add(post);
-            });
-          }});
-        }
-        
+        user.fetch({ success: function() {
+          _(user.posts().models).each(function(post) {
+            that.posts.add(post);
+          });
+        }});
       });
     }});
     

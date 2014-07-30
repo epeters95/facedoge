@@ -57,6 +57,10 @@ Facedoge.Models.User = Backbone.Model.extend({
     return this._images;
   },
   
+  profilePic: function() {
+    this.images().findWhere({ profile: true });
+  },
+  
   // friendships are nested, avoid separate route
   parse: function(response) {
     // for now, join in_friendships and out_friendships into single collection...
@@ -84,6 +88,11 @@ Facedoge.Models.User = Backbone.Model.extend({
         i++;
       });
       delete response.posts;
+    }
+    
+    if (response.images) {
+      this.images().set(response.images);
+      delete response.images;
     }
 
     return response;

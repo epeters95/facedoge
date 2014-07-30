@@ -5,8 +5,37 @@
     <% nameString += " " + user.profile().last_name %>
   <% } %>
   
-  <p><a href="/#/users/<%= user.id %>"><%= nameString %></a><p>
-    
+  <% var styleString; %>
+  
+  <script>
+    $(function() {
+      var img = $("div.profile-thumb img")[0];
+      $("<img/>") // Make in memory copy of image to avoid css issues
+        .attr("src", $(img).attr("src"))
+        .load(function() {
+          if (this.width > this.height) {
+            styleString = "height";
+          } else {
+            styleString = "width";
+          }
+          $(img).css("min-" + styleString, "75px");
+          $(img).css("max-" + styleString, "75px");
+        });
+    })
+  </script>
+  
+  <div class="profile-thumb">
+    <a href="/#/users/<%= user.id %>">
+      <% var img = user.images().findWhere({ profile: true }) %>
+      <% if (img) { %>
+        <img src="<%= img.get("file_url") %>">
+      <% } %>
+    </a>
+  </div>
+  
+  <div class="profile-show">
+    <span><a href="/#/users/<%= user.id %>"><%= nameString %></a></span>
+  </div>
 <% } else { %>
   
   <!-- <div class="loading"><i>Loading...</i></div> -->

@@ -7,7 +7,7 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
     this.sticky = "posts";
     //this.refreshAll();
     
-    //this.listenTo(this.currentUser, 'sync', this.addFriendViews);
+    this.listenTo(this.currentUser, 'sync', this.addFriendViews);
     this.listenTo(this.model, 'sync', this.addFriendViews);
     this.listenTo(this.model.friendships(), 'remove add', this.render);
     //this.listenTo(this.currentUser.friendships(), 'sync', this.render);
@@ -99,9 +99,14 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
         in_friend_id: this.model.id,
         out_friend_id: this.currentUser.id
       });
-      friendship.save();
-      this.model.fetch();
-      this.currentUser.fetch();
+      var that = this;
+      friendship.save({}, {
+        success: function() {
+          
+          that.model.fetch();
+          that.currentUser.fetch();
+        }
+      });
       break;
     case "Add friend":
       var friendship = new Facedoge.Models.Friendship({
@@ -177,6 +182,33 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
     this.renderButton();
   },
   
+  renderProfilePic: function() {
+    var $div = this.$('div#profile-pic');
+    var pic = this.model.images().findWhere({ profile: true });
+    if (pic) { $div.html('<img class="profile" src="' + pic.get("file_url") + '">'); }
+    var img = $("img.profile")[0];
+    var img_width, img_height;
+    var that = this;
+    $("<img/>") // Make in memory copy of image to avoid css issues
+      .attr("src", $(img).attr("src"))
+      .load(function() {
+        img_width = this.width;   // Note: $(this).width() will not
+        img_height = this.height; // work for in memory images.
+        that.stickyLinks(img_height * 290/img_width);
+      });
+  },
+  
+  stickyLinks: function(offset) {
+    var stickyHeaderTop = offset + 52;
+    $(document).scroll(function() {
+      if( $(document).scrollTop() > stickyHeaderTop ) {
+        $('.sticky-links').css({position: 'fixed', top: '100px'});
+      } else {
+        $('.sticky-links').css({position: 'static', top: '500px'});
+      }
+    });
+  },
+  
   render: function() {
     // TODO: clean up some incomplete renders
     var that = this;
@@ -196,13 +228,13 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
       this.$el.html(content);
     }
     
+    this.renderProfilePic();
+    
     this.$el.find($('li.posts-link')).removeClass('active');
     this.$el.find($('li.friends-link')).removeClass('active');
     this.$el.find($("li." + this.sticky + "-link")).addClass('active');
     this.renderButton();
     this.attachSubviews();
-    
-    
         
     return this;
   }
