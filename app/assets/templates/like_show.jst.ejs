@@ -1,0 +1,10 @@
+<div class="like-show">
+  <span class="glyphicon glyphicon-thumbs-up"></span>
+  
+  <% var likesString = " people like this.  " %>
+  <% if (numLikes === 1) { likesString = " person likes this.  " } %>
+    <span class="like-string">  <%= "" + numLikes + likesString %></span>
+  <% if (doesLike) { %>
+    <a class="unlike">Unlike</a>
+  <% } %>
+</div>

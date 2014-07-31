@@ -71,6 +71,7 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
   },
   
   addPostView: function(post) {
+    this.currentUser.fetch();
     var postView = new Facedoge.Views.PostShow({
       model: post
     });

@@ -13,6 +13,8 @@ Facedoge.Views.PostNew = Backbone.View.extend({
     })
     this.model.posts().create(post);
     this.model.fetch();
+    var that = this;
+    this.currentUser.fetch({ success: function() { that.render() }});
     this.$('textarea').val('');
   },
   

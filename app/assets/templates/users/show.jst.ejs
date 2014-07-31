@@ -1,6 +1,6 @@
 <% if (user.profile()) { %>
   
-  <% var nameString = "" + user.profile().first_name %>
+  <% var nameString = "   " + user.profile().first_name %>
   <% if (user.profile().last_name.length > 0) { %>
     <% nameString += " " + user.profile().last_name %>
   <% } %>

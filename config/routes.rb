@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :posts, only: [:create, :show, :destroy] # Add edit functionality later
     resources :comments, only: [:create, :show, :destroy]
     resources :images, only: [:create, :show, :destroy]
+    resources :post_likes, only: [:create, :destroy]
+    resources :comment_likes, only: [:create, :destroy]
   end
   
   root to: "static_pages#root"

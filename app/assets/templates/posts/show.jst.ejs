@@ -1,7 +1,12 @@
 <div class="post-view">
-
-<div class="posting-user"></div>
-<div class="post-body"><p><%= post.escape("body") %></p></div>
+<% var dateString = moment(post.get("created_at"), "YYYY-MM-DD HH:mm:SS Z").format('MMMM Do YYYY, h:mm a') %>
+<div class="posting-user"></div><div class="datetime"><span><%= dateString %></span></div>
+<div class="post-body">
+  <span><%= post.escape("body") %></span>
+  
+  <br>
+  <div class="post-like"></div>
+</div>
 
 <div class="comments"></div>
 <div class="comment-new"></div>

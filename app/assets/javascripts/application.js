@@ -16,6 +16,7 @@
 //= require bootstrap
 //= require underscore
 //= require backbone
+//= require moment
 //= require facedoge
 //= require_tree ../templates
 //= require_tree ./utils

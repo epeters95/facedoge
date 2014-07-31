@@ -11,6 +11,12 @@ Facedoge.Views.CommentShow = Backbone.CompositeView.extend({
   // TODO: both comments and posts use the same user show view, change later?
   render: function() {
     var content = this.template({ comment: this.model });
+    if (this.subviews('.comment-like').length === 0) {
+      var like = new Facedoge.Views.CommentLikeShow({
+        model: this.model
+      })
+      this.addSubview(".comment-like", like);
+    }
     this.$el.html(content);
     this.attachSubviews();
     return this;

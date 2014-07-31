@@ -37,9 +37,17 @@ Facedoge.Views.PostShow = Backbone.CompositeView.extend({
         that.addSubview(".comments", commentView);
       });
     }
+    if (this.subviews('.post-like').length === 0) {
+      var like = new Facedoge.Views.PostLikeShow({
+        model: this.model
+      })
+      this.addSubview(".post-like", like);
+    }
+    
     
     var content = this.template({ post: this.model });
     this.$el.html(content);
+    
     this.attachSubviews();
     return this;
   }

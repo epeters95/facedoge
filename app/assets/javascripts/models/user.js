@@ -83,7 +83,19 @@ Facedoge.Models.User = Backbone.Model.extend({
       _(this.posts().models).each(function(post) {
         if (response.posts[i].comments) {
           post.comments().set(response.posts[i].comments);
+          var j = 0;
+          _(post.comments().models).each(function(comment) {
+            if (response.posts[i].comments[j].comment_likes) {
+              comment.likes().set(response.posts[i].comments[j].comment_likes);
+              delete response.posts[i].comments[j].comment_likes
+            }
+            j++;
+          });
           delete response.posts[i].comments;
+        }
+        if (response.posts[i].post_likes) {
+          post.likes().set(response.posts[i].post_likes);
+          delete response.posts[i].post_likes
         }
         i++;
       });

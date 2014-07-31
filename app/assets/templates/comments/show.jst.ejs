@@ -1,5 +1,18 @@
 <br>
+<% var dateString = "" %>
+<% if (comment && !comment.get("created_at")) { %>
+  <% dateString = moment().format('MMM Do YYYY, h:mm a') %>
+<% } else { %>
+  <% dateString = moment(comment.get("created_at"), "YYYY-MM-DD HH:mm:SS Z").format('MMMM Do YYYY, h:mm a') %>
+<% } %>
+
 <div class="comment-wrapper">
-<div class="commenting-user"></div>
-<div class="comment-body"><p><%= comment.escape("body") %></p></div>
+<div class="commenting-user"></div><div class="datetime"><span><%= dateString %></span></div>
+<div class="comment-body">
+  <span><%= comment.escape("body") %></span>
+  <br>
+  
+  
+</div>
+<div class="comment-like"></div>
 </div>

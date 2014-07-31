@@ -176,6 +176,14 @@ div.comment-body {
   left: 95px;
 }
 
+div.posting-user {
+  display: inline-block;
+}
+
+div.commenting-user {
+  display: inline-block;
+}
+
 div.comment-wrapper {
   margin-left: 52px;
 }
@@ -193,3 +201,62 @@ div.comment-form textarea {
 div.comment-form input {
   float: right;
 }
+
+li.friends-link {
+  cursor: pointer;
+}
+
+li.posts-link {
+  cursor: pointer;
+}
+
+.glyphicon-thumbs-up {
+  cursor: pointer;
+}
+
+.glyphicon-thumbs-down {
+  cursor: pointer;
+}
+
+a.unlike {
+  cursor: pointer;
+  font-size: 10pt;
+  color: #C1C1C1;
+}
+
+div.like-show {
+  font-size: 10pt;
+  color: #9A9A9A;
+}
+
+div.comment-wrapper div.like-show {
+  font-size: 10pt;
+  color: #9A9A9A;
+  margin-left: 80px;
+}
+
+div.datetime {  
+  position: relative;
+  display: inline-block;
+  left: -55px;
+  float: right;
+}
+
+div.datetime span {
+  font-size: 10pt;
+  color: #C4C4C4;
+}
+
+.comment-body div.datetime {
+  display: inline-block;
+  position: relative;
+  left: 30px;
+  float: right;
+}
+
+.comment-body div.datetime span {
+  font-size: 10pt;
+  color: #C4C4C4;
+}
+
+

@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :comments
   has_many :images
+  has_many :post_likes
+  has_many :comment_likes
   
   validates :email, :password_digest, :session_token, presence: true
   validates :email, uniqueness: true

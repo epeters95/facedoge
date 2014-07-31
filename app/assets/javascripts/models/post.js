@@ -9,5 +9,15 @@ Facedoge.Models.Post = Backbone.Model.extend({
     }
     
     return this._comments;
+  },
+  
+  likes: function() {
+    if (!this._post_likes) {
+      this._post_likes = new Facedoge.Collections.PostLikes([], {
+        post: this
+      });
+    }
+    
+    return this._post_likes;
   }
 });

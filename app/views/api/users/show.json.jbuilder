@@ -14,7 +14,13 @@ end
 
 json.posts @user.posts do |post|
   json.comments post.comments do |comment|
-    json.extract! comment, :id, :user_id, :post_id, :body
+    json.comment_likes comment.comment_likes do |comment_like|
+      json.extract! comment_like, :id, :user_id, :comment_id, :created_at, :updated_at
+    end
+    json.extract! comment, :id, :user_id, :post_id, :body, :created_at, :updated_at
+  end
+  json.post_likes post.post_likes do |post_like|
+    json.extract! post_like, :id, :user_id, :post_id, :created_at, :updated_at
   end
   json.extract! post, :id, :user_id, :body, :created_at, :updated_at
 end
