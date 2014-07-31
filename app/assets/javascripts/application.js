@@ -29,16 +29,41 @@
 
 $(document).ready(function() {
     filepicker.setKey("APfLg3iZUTanSEgY5zAsNz");
+    
 });
 
 var checkForm = function() {
-  $('div.form-group').removeClass('has-error');
-  $('.alert').remove();
-  if (!$('input[type="text"]').val() || !$('input[type="password"]').val()) {
-    $('div.alerts').append(
-      '<div class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>Blank field.</div>');
-    $('div.form-group').addClass('has-error');
-    return false;
+  console.log("checking");
+    $('div.first-name-form').removeClass("has-error");
+    $('div.last-name-form').removeClass("has-error")
+    $('div.email-form').removeClass("has-error");
+    $('div.pwd-form').removeClass("has-error");
+    $(".alert-danger").remove();
+    if (!$("input#profile-firstname").val()) {
+      $('div#first-name-alerts').append('<div class="alert-danger" role="alert">no first name :(</div>');
+      $('div.first-name-form').addClass('has-error');
+      return false;
+    }
+    if (!$("input#profile-lastname").val()) {
+      $('div#last-name-alerts').append('<div class="alert-danger" role="alert">no last name :(</div>');
+      $('div.last-name-form').addClass('has-error');
+      return false;
+    }
+    if (!$("input#user-email").val()) {
+      $('div#email-alerts').append('<div class="alert-danger" role="alert">give email pls</div>');
+      $('div.email-form').addClass('has-error');
+      return false;
+    }
+    if (!$("input#user-pwd").val()) {
+      $('div#password-alerts').append('<div class="alert-danger" role="alert">need much security</div>');
+      $('div.email-form').addClass('has-error');
+      return false;
+    }
+    return true;
+};
+
+var submitForm = function() {
+  if (checkForm()) {
+    document.forms["signup-form"].submit();
   }
-  return true;
 };

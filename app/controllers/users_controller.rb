@@ -6,16 +6,17 @@ class UsersController < ApplicationController
     @profile = Profile.new(profile_params)
     @user.profile = @profile
     
+    
     if @profile.save
       if @user.save
         login!(@user)
         redirect_to root_url
       else
-        flash[:errors] = @user.errors.full_messages
+        flash.now[:errors] = @user.errors.full_messages
         render :new
       end
     else
-      flash[:errors] = @profile.errors.full_messages
+      flash.now[:errors] = ["Email already taken"]
       render :new
     end
   end
@@ -32,9 +33,6 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     redirect_to "/#/users/#{params[:id]}"
-    
-    # TODO: Implement server-friendly user show page
-    # render :show
   end
   
   private

@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       login!(@user)
       redirect_to root_url
     else
-      flash[:errors] = ["Wrong username or password."]
+      flash[:errors] = ["Wrong email or password"]
       redirect_to :back
     end
   end

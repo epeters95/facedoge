@@ -5,34 +5,40 @@
 <div class="col-xs-3">
   <h1>Sign Up</h1>
 
-  <form action="<%= users_url %>" method="POST" role="form">
+  <form action="<%= users_url %>" method="POST" role="form" id="signup-form" onsubmit="event.preventDefault(); submitForm();">
     <input
       type="hidden"
       name="authenticity_token"
       value="<%= form_authenticity_token %>">
   
-    <div class="form-group">
-      <label for="user-email">Email</label><br>
+    <div id="first-name-alerts"></div>
+    <div class="form-group first-name-form">
       <input
-        id="user-email"
-        type="text"
-        name="user[email]">
-    </div>
-  
-    <div class="form-group">
-      <label for="profile-firstname">First Name</label><br>
-      <input
+        class="form-control"
         id="profile-firstname"
         type="text"
-        name="profile[first_name]">
+        name="profile[first_name]"
+        placeholder="First name">
     </div>
-  
-    <div class="form-group">
-      <label for="profile-lastname">Last Name</label><br>
+    
+    <div id="last-name-alerts"></div>
+    <div class="form-group last-name-form">
       <input
+        class="form-control"
         id="profile-lastname"
         type="text"
-        name="profile[last_name]">
+        name="profile[last_name]"
+        placeholder="Last name">
+    </div>
+    
+    <div id="email-alerts"></div>
+    <div class="form-group email-form">
+      <input
+        class="form-control"
+        id="user-email"
+        type="text"
+        name="user[email]"
+        placeholder="Email">
     </div>
   
     <!-- <div class="form-group">
@@ -42,15 +48,20 @@
         type="text"
         name="profile[name_tag]">
     </div> -->
-    
-    <div class="form-group">
-      <label for="user-pwd">Password</label><br>
-      <input type="password" name="user[password]">
+      
+    <div id="password-alerts"></div>    
+    <div class="form-group pwd-form">
+      <input
+        class="form-control"
+        id="user-pwd"
+        type="password"
+        name="user[password]"
+        placeholder="Password">
     </div>
   
     <input type="hidden" name="profile[bio]" value="<%= simple_format("much noob \n bio so default") %>">
   
-    <input type="submit" class="btn">
+    <input class="btn" type="submit" value="Submit">
   </form>
 </div>
 
