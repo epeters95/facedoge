@@ -24,9 +24,11 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
     "click button#request-btn" : "requestFriend",
     "click li.friends-link" : "switchFriends",
     "click li.posts-link" : "switchPosts",
+    "click li.photos-link" : "switchPhotos",
     "click button#edit" : "switchEdit",
     "click button#save" : "saveEdit",
-    "click button#widget" : "savePhoto"
+    "click button#widget" : "savePhoto",
+    "click button.profile-button" : "updatePhoto"
   },
   
   savePhoto: function() {
@@ -42,6 +44,7 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
           user_id: that.currentUser.id,
           profile: true
         });
+        that.currentUser.images().invoke('set', { profile: false });
         that.currentUser.images().create(image);
         that.currentUser.fetch();
       },
@@ -49,6 +52,16 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
         console.log(FPError.toString());
       }
     );
+  },
+  
+  updatePhoto: function() {
+    var imageId = $('button.profile-button').attr('id');
+    var image = this.currentUser.images().findWhere({
+      id: imageId
+    });
+    this.currentUser.images().invoke('set', { profile: false });
+    image.set({ profile: true });
+    this.currentUser.fetch();
   },
   
   switchEdit: function() {
@@ -66,7 +79,7 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
         bio: this.$('#bio').val(),
         user_id: this.currentUser.id
       }
-    }, {patch: true, wait: true});
+    }, { patch: true, wait: true });
     this.render();
   },
   
@@ -137,6 +150,15 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
       });
     }
     
+    if (this.subviews('.photos').length === 0 && this.currentUser.images().length > 0) {
+      _(this.currentUser.images().models).each(function(image) {
+        var imageView = new Facedoge.Views.ImageShow({
+          model: image
+        });
+        that.addSubview('.photos', imageView);
+      });
+    }
+    
     var content = this.template({
       user: this.currentUser,
       sticky: this.sticky
@@ -151,11 +173,12 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
     }
     
     this.$el.find($('.name-header')).append('<button id="edit">Edit Profile</button></h1>');
-    
+    this.$el.find($('li.photos-link')).removeClass('active');
     this.$el.find($('li.posts-link')).removeClass('active');
     this.$el.find($('li.friends-link')).removeClass('active');
     this.$el.find($("li." + this.sticky + "-link")).addClass('active');
     this.attachSubviews();
+    if (this.$('.photos')[0]) { $(this.$('.photos')[0]).addClass('container')}
     return this;
   }
 });

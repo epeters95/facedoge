@@ -23,27 +23,33 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
     });
     this.$el.find($('li.posts-link')).removeClass('active');
     this.$el.find($('li.friends-link')).removeClass('active');
+    this.$el.find($('li.photos-link')).removeClass('active');
   },
   
   events: {
     "click button#request-btn" : "requestFriend",
     "click li.friends-link" : "switchFriends",
-    "click li.posts-link" : "switchPosts"
+    "click li.posts-link" : "switchPosts",
+    "click li.photos-link" : "switchPhotos"
   },
   
   switchFriends: function() {
     
     var $friendsLink = this.$el.find($('li.friends-link'));
+    var $photosLink = this.$el.find($('li.photos-link'));
     var $postsLink = this.$el.find($('li.posts-link'));
     
     if (!$friendsLink.hasClass('active')) {
       this.sticky = "friends";
       var target = this.$el.find($('.sticky-target'));
       target.removeClass('posts');
+      target.removeClass('photos');
+      target.removeClass('container');
       target.addClass('friends');
       
       $friendsLink.addClass('active');
       $postsLink.removeClass('active');
+      $photosLink.removeClass('active');
     }
     
     this.render();
@@ -51,16 +57,41 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
   
   switchPosts: function() {
     var $friendsLink = this.$el.find($('li.friends-link'));
+    var $photosLink = this.$el.find($('li.photos-link'));
     var $postsLink = this.$el.find($('li.posts-link'));
     
     if (!$postsLink.hasClass('active')) {
       this.sticky = "posts";
       var target = $('.sticky-target');
       target.removeClass('friends');
+      target.removeClass('photos');
+      target.removeClass('container');
       target.addClass('posts');
       
       $postsLink.addClass('active');
       $friendsLink.removeClass('active');
+      $photosLink.removeClass('active');
+    }
+    
+    this.render();
+  },
+  
+  switchPhotos: function() {
+    var $friendsLink = this.$el.find($('li.friends-link'));
+    var $photosLink = this.$el.find($('li.photos-link'));
+    var $postsLink = this.$el.find($('li.posts-link'));
+    
+    if (!$photosLink.hasClass('active')) {
+      this.sticky = "photos";
+      var target = $('.sticky-target');
+      target.removeClass('friends');
+      target.removeClass('posts');
+      target.addClass('photos');
+      target.addClass('container');
+      
+      $photosLink.addClass('active');
+      $friendsLink.removeClass('active');
+      $postsLink.removeClass('active');
     }
     
     this.render();
@@ -182,6 +213,15 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
     this.renderButton();
   },
   
+  addPhotoView: function(image) {
+    var imageView = new Facedoge.Views.ImageShow({
+      model: image
+    });
+    this.addSubview('.photos', imageView);
+    debugger;
+    this.$('.sticky-target').addClass('container');
+  },
+  
   renderProfilePic: function() {
     var $div = this.$('div#profile-pic');
     var pic = this.model.images().findWhere({ profile: true });
@@ -217,9 +257,19 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
         var postView = new Facedoge.Views.PostShow({
           model: post
         });
-        that.addSubview(".posts", postView);
+        that.addSubview('.posts', postView);
       });
     }
+    
+    if (this.subviews('.photos').length === 0 && this.model.images().length > 0) {
+      _(this.model.images().models).each(function(image) {
+        var imageView = new Facedoge.Views.ImageShow({
+          model: image
+        });
+        that.addSubview('.photos', imageView);
+      });
+    }
+    
     if (this.model.profile()) {
       var content = this.template({
         user: this.model,
@@ -232,10 +282,11 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
     
     this.$el.find($('li.posts-link')).removeClass('active');
     this.$el.find($('li.friends-link')).removeClass('active');
+    this.$el.find($('li.photos-link')).removeClass('active');
     this.$el.find($("li." + this.sticky + "-link")).addClass('active');
     this.renderButton();
     this.attachSubviews();
-        
+    if (this.$('.photos')[0]) { $(this.$('.photos')[0]).addClass('container')}
     return this;
   }
   

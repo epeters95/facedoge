@@ -17,6 +17,10 @@
   background-color: #F4F4F4;
 }
 
+div.content > div > div.posts {
+  padding-right: 6%;
+}
+
 
 // comments
 .post-view > div.splitter {
@@ -29,6 +33,14 @@
   border-radius: 6px;
   padding-left: 35px;
   padding-top: 35px;
+  height: 100%;
+  min-height: 300px;
+}
+
+.sticky-target.photos {
+  background-color: #DDDDDD;
+  border-radius: 6px;
+  padding: 30px 15px;
   height: 100%;
   min-height: 300px;
 }

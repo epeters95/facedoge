@@ -56,19 +56,16 @@ body {
   height: 1000px;
   position: fixed;
   top: -50px;
-  overflow-y: auto;
   background-color: #CCCCCC;
   box-shadow: 8px 0px 35px #BBBBBB;
 }
 
 #content-wrapper {
-  width: 90%;
+  width: 80%;
   position: relative;
-  float: left;
-  overflow: auto;
-  margin-left: 230px;
-  padding-left: 15%;
-  padding-right: 15%;
+  left: 230px;
+  padding-left: 12%;
+  padding-right: 5%;
 }
 
 .sidebar > nav {
@@ -107,10 +104,12 @@ div.profile {
 
 div.left-bar {
   position: relative;
-  float: left;
   width: 180px;
-  margin-left: -60px;
+  right: 60px;
+  float: left;
+  margin-left: 0px;
   margin-right: 20px;
+  z-index: 3;
 }
 
 div.right-bar {
@@ -121,10 +120,11 @@ div.right-bar {
 ul.sticky-links > li > a {
   color: #888888;
   font-weight: bold;
+  
 }
 
 ul.sticky-links {
-  width: 180px;
+  width: 290px;
 }
 
 ul.sticky-links > li.active > a {
@@ -148,6 +148,8 @@ div.profile-thumb img {
   min-width: 75px;
   max-width: 75px;
   position: absolute;
+  border: 3px solid #EFEFEF;
+  border-radius: 4px;
 }
 
 div.profile-thumb > a {
@@ -210,6 +212,10 @@ li.posts-link {
   cursor: pointer;
 }
 
+li.photos-link {
+  cursor: pointer;
+}
+
 .glyphicon-thumbs-up {
   cursor: pointer;
 }
@@ -258,5 +264,41 @@ div.datetime span {
   font-size: 10pt;
   color: #C4C4C4;
 }
+
+
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  align: center;
+  margin: auto;
+}
+
+div.photo-view img {
+  max-width: 80%;
+  max-height: 80%;
+}
+
+.item {
+  max-width: 170px;
+  padding-bottom: 15px;
+  margin: auto;
+}
+
+div.photo-view > a > img {
+  border: 4px solid #EFEFEF;
+  border-radius: 5px;
+}
+
+button.profile-button {
+  height: 50px;
+  width: 100px;
+  margin-top: -30px;
+  margin-left: -100px;
+  z-index: 2;
+}
+
+
+
 
 
