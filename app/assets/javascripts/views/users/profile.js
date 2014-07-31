@@ -224,7 +224,11 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
   renderProfilePic: function() {
     var $div = this.$('div#profile-pic');
     var pic = this.model.images().findWhere({ profile: true });
-    if (pic) { $div.html('<img class="profile" src="' + pic.get("file_url") + '">'); }
+    if (pic) {
+      $div.html('<img class="profile" src="' + pic.get("file_url") + '">');
+    } else {
+      $div.html('<img class="profile" src="/assets/profile.png">');
+    }
     var img = $("img.profile")[0];
     var img_width, img_height;
     var that = this;

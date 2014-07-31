@@ -29,6 +29,8 @@
       <% var img = user.images().findWhere({ profile: true }) %>
       <% if (img) { %>
         <img src="<%= img.get("file_url") %>">
+      <% } else { %>
+        <img src="/assets/profile.png">
       <% } %>
     </a>
   </div>
