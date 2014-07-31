@@ -218,7 +218,6 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
       model: image
     });
     this.addSubview('.photos', imageView);
-    debugger;
     this.$('.sticky-target').addClass('container');
   },
   

@@ -1,27 +1,28 @@
-<div class="item photo-view" id="<%= image.id %>"><a href="#myModal" data-img-url="<%= image.get("file_url") %>" data-toggle="modal"><img src="<%= image.get("file_url") %>"></a></div>
-<% $image = image %>
+<div class="item photo-view div-<%= image.id %>" data-user-id="<%= image.get("user_id") %>"><a href="#myModal" data-img-url="<%= image.get("file_url") %>" data-toggle="modal"><img data-user-id="<%= image.get("user_id") %>" data-img-id="<%= image.id %>" src="<%= image.get("file_url") %>"></a></div>
+
 <script>
-  $('#myModal').on('hidden.bs.modal', function (e) {
-    $('body').removeClass('modal-open');
-    $('.modal-backdrop').remove();
-  });
+$('#myModal').on('hidden.bs.modal', function (e) {
+  $('body').removeClass('modal-open');
+  $('.modal-backdrop').remove();
+});
+
+$('a').click(function(e) {
+  $('#myModal img').attr('src', $(this).attr('data-img-url'));
+});
+
+$('img').mouseenter(function(e) {
   
-  $('a').click(function(e) {
-    $('#myModal img').attr('src', $(this).attr('data-img-url'));
-  });
-  
-  $('img').mouseenter(function(e) {
-    if ($image.get("user_id") === Facedoge.currentUser().id) {
-      $('div.photos').append('<button class="profile-button" id="'+$image.id+'">Set as profile</button>');
-    }
-  });
-  
-  $('img').mouseleave(function(e) {
-    if ($image.get("user_id") === Facedoge.currentUser().id) {
-      $('.profile-button').remove();
-    }
-  });
-  
+  if ($(this).attr('data-user-id') == Facedoge.currentUser().id && !$('.profile-button')[0]) {
+    $('div.div-' + $(this).attr('data-img-id')).append('<button class="profile-button" id="' + $(this).attr('data-img-id') + '">Set as profile</button>');
+  }
+});
+
+$('div.photo-view').mouseleave(function(e) {
+  if ($(this).attr('data-user-id') == Facedoge.currentUser().id) {
+
+    $('.profile-button').remove();
+  }
+});
 </script>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

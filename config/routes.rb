@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resource :current_user, only: [:show]
     resources :posts, only: [:create, :show, :destroy] # Add edit functionality later
     resources :comments, only: [:create, :show, :destroy]
-    resources :images, only: [:create, :show, :destroy]
+    resources :images, only: [:create, :show, :destroy, :update]
     resources :post_likes, only: [:create, :destroy]
     resources :comment_likes, only: [:create, :destroy]
   end

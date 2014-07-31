@@ -45,8 +45,11 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
           profile: true
         });
         that.currentUser.images().invoke('set', { profile: false });
-        that.currentUser.images().create(image);
-        that.currentUser.fetch();
+        image.save({}, { success: function() {
+          that.currentUser.images().add(image);
+          that.addPhotoView(image);
+          that.render();
+        }});
       },
       function(FPError){
         console.log(FPError.toString());
@@ -57,11 +60,18 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
   updatePhoto: function() {
     var imageId = $('button.profile-button').attr('id');
     var image = this.currentUser.images().findWhere({
-      id: imageId
+      id: parseInt(imageId)
     });
-    this.currentUser.images().invoke('set', { profile: false });
+
+    _(this.currentUser.images().models).each(function(image) {
+      image.set({ profile: false });
+      image.save();
+    });
     image.set({ profile: true });
-    this.currentUser.fetch();
+    var that = this;
+    image.save({}, { success: function() {
+      that.render();
+    }});
   },
   
   switchEdit: function() {
@@ -108,7 +118,6 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
         that.addSubview('.friends', friendView);
       }
     });
-    this.render();
   },
   
   renderProfilePic: function() {
@@ -157,6 +166,12 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
         });
         that.addSubview('.photos', imageView);
       });
+    }
+    
+    if (this.sticky === 'friends') {
+      if (this.subviews('.friends').length === 0) { this.addFriendViews(); }
+    } else if (this.sticky === '.photos') {
+      this.removeSubview('.friends', this.subviews('.friends'));
     }
     
     var content = this.template({
