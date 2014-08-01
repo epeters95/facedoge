@@ -7,14 +7,15 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
     this.listenTo(this.currentUser.posts(), 'add', this.addPostView);
     this.sticky = "posts";
     
+    this.form;
+    
     var that = this;
     this.currentUser.fetch({
       success: function() {
-        var form = new Facedoge.Views.PostNew({
+        that.form = new Facedoge.Views.PostNew({
           model: that.currentUser,
           collection: that.currentUser.posts()
         });
-        that.addSubview(".post-new", form);
         that.render();
       }
     });
@@ -70,6 +71,7 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
     image.set({ profile: true });
     var that = this;
     image.save({}, { success: function() {
+      that.currentUser.fetch();
       that.render();
     }});
   },
@@ -90,6 +92,7 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
         user_id: this.currentUser.id
       }
     }, { patch: true, wait: true });
+    this.currentUser.fetch();
     this.render();
   },
   
@@ -174,8 +177,16 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
     
     if (this.sticky === 'friends') {
       if (this.subviews('.friends').length === 0) { this.addFriendViews(); }
+      if (this.subviews('.post-new')[0]) {
+        this.removeSubview('.post-new', this.subviews('.post-new')[0]);
+      }
     } else if (this.sticky === '.photos') {
       this.removeSubview('.friends', this.subviews('.friends'));
+      if (this.subviews('.post-new')[0]) {
+        this.removeSubview('.post-new', this.subviews('.post-new'));
+      }
+    } else if (this.sticky === 'posts' && this.form) {
+      this.addSubview('.post-new', this.form);
     }
     
     var content = this.template({
@@ -186,16 +197,15 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
     
     this.renderProfilePic();
     
-    if (this.currentUser.profile()) {
-      // var $filePickerInput = this.$("input[type=filepicker]");
-//       filepicker.constructWidget($filePickerInput[0]);
-    }
-    
     this.$el.find($('.name-header')).append('<button id="edit">Edit Profile</button></h1>');
     this.$el.find($('li.photos-link')).removeClass('active');
     this.$el.find($('li.posts-link')).removeClass('active');
     this.$el.find($('li.friends-link')).removeClass('active');
     this.$el.find($("li." + this.sticky + "-link")).addClass('active');
+    if (this.currentUser.profile()) {
+      $('.right-bar').append('<div class="post-new"></div>');
+    }
+    
     this.attachSubviews();
     if (this.$('.photos')[0]) { $(this.$('.photos')[0]).addClass('container')}
     return this;

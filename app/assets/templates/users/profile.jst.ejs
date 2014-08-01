@@ -9,10 +9,9 @@
       <div id="profile-pic">
       </div>
       <% if (user.id === Facedoge.currentUser().id) { %>
-      <button id="widget">Add a profile pic</button>
-      
-      
-        
+        <button id="widget">Add a profile pic</button>
+      <% } else { %>
+        <br>
       <% } %>
       <br>
       <br>
@@ -42,9 +41,11 @@
         <p id="bio"><b>Bio: </b><%= user.profile().bio %></p>
       </div>
       <br>
-      <div class="<%= "sticky-target " + sticky %>"></div>
-      <br>
+      <div class="<%= "sticky-target " + sticky %>">
       <div class="post-new"></div>
+      </div>
+      <br>
+      
       
     </div>
     

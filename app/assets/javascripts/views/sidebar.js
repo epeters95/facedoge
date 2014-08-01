@@ -8,13 +8,51 @@ Facedoge.Views.Sidebar = Backbone.CompositeView.extend({
     Facedoge.allUsers.fetch({ success: function() {
        that.currentUser = Facedoge.currentUser();
        that.listenTo(that.currentUser, 'sync', that.render);
-       that.listenTo(that.currentUser.friendships(), 'add remove', that.render);
+       that.listenTo(that.currentUser.friendships(), 'add', that.addEvent);
+       that.listenTo(that.currentUser.friendships(), 'remove', that.removeEvent);
     }});
+  },
+  
+  addEvent: function(friendship) {
+    console.log("added: ");
+    console.log(friendship);
+    var friendView;
+    var that = this;
+    _(this.subviews('.request-items')).each(function(view) {
+      if (view.model.id === friendship.get("out_friend_id") ||
+          view.model.id === friendship.get("in_friend_id"))
+      { friendView = view }
+    });
+    if (friendView) { this.removeSubview('.request-items', friendView) }
+  },
+  
+  removeEvent: function(friendship) {
+    if (Backbone.history.fragment === 'users/' + this.currentUser.id) {
+      return;
+    }
+    console.log("removed: ");
+    console.log(friendship);
+    var friendView;
+    var that = this;
+    _(this.subviews('.friend-items')).each(function(view) {
+      if (view.model.id === friendship.get("out_friend_id") ||
+          view.model.id === friendship.get("in_friend_id"))
+      { friendView = view }
+    });
+    if (friendView) { this.removeSubview('.friend-items', friendView); }
+    _(this.subviews('.request-items')).each(function(view) {
+      if (view.model.id === friendship.get("out_friend_id") ||
+          view.model.id === friendship.get("in_friend_id"))
+      { friendView = view }
+    });
+    if (friendView) { this.removeSubview('.request-items', friendView) }
+    this.render();
   },
   
   addFriendViews: function() {
     var that = this;
     _(this.currentUser.connectedFriendIds()).each(function(friendId) {
+
       var user = Facedoge.allUsers.get(friendId);
       var exists = false;
       _(that.subviews('.friend-items')).each(function(view) {

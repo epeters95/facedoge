@@ -242,7 +242,7 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
   },
   
   stickyLinks: function(offset) {
-    var stickyHeaderTop = offset + 52;
+    var stickyHeaderTop = offset + 115;
     $(document).scroll(function() {
       if( $(document).scrollTop() > stickyHeaderTop ) {
         $('.sticky-links').css({position: 'fixed', top: '100px'});

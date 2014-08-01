@@ -5,8 +5,11 @@
 <% if (user.profile()) { %>
   
     <div class="left-bar">
+      <br>
       <div id="profile-pic">
       </div>
+      <br>
+      <br>
       <br>
       <ul class="sticky-links nav nav-stacked">
         <li class="posts-link"><a>Posts</a><li>
@@ -42,18 +45,7 @@
       
     </div>
     
-    <script>
-    $(function() {
-      var stickyHeaderTop = $('.sticky-links').offset().top;
-      $(window).scroll(function(){
-        if( $(window).scrollTop() + 100 > stickyHeaderTop ) {
-          $('.sticky-links').css({position: 'fixed', top: '100px'});
-        } else {
-          $('.sticky-links').css({position: 'static', top: '500px'});
-        }
-      });
-    });
-    </script>
+    
   
 <% } else { %>
   
