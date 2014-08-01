@@ -7,16 +7,16 @@ class UsersController < ApplicationController
     @user.profile = @profile
     
     
-    if @profile.save
-      if @user.save
+    if @user.save
+      if @profile.save
         login!(@user)
         redirect_to root_url
       else
-        flash.now[:errors] = @user.errors.full_messages
+        flash.now[:errors] = ["Email already taken"]
         render :new
       end
     else
-      flash.now[:errors] = ["Email already taken"]
+      flash.now[:errors] = @user.errors.full_messages
       render :new
     end
   end
