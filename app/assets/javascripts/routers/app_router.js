@@ -4,6 +4,9 @@ Facedoge.Routers.AppRouter = Backbone.Router.extend({
     
     var sidebarView = new Facedoge.Views.Sidebar();
     $('.sidebar-list').append(sidebarView.render().$el);
+    
+    var dogeify = new Facedoge.Views.Dogeify();
+    $('body').append(dogeify.render().$el);
   },
   
   routes: {

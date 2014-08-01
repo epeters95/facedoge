@@ -12,6 +12,7 @@
   </script>
   
   <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 </head>
 <body>
   <div class="header">
@@ -25,6 +26,8 @@
           <%= render "layouts/sidebar" %>
         </div>
       </div>
+      <% else %>
+        <img class="splash" src="/assets/splash.png">
       <% end %> 
       <div id="content-wrapper">
         <div class="content">
