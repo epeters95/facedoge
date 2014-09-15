@@ -14,8 +14,6 @@ Facedoge.Views.Sidebar = Backbone.CompositeView.extend({
   },
   
   addEvent: function(friendship) {
-    console.log("added: ");
-    console.log(friendship);
     var friendView;
     var that = this;
     _(this.subviews('.request-items')).each(function(view) {
@@ -30,8 +28,6 @@ Facedoge.Views.Sidebar = Backbone.CompositeView.extend({
     if (Backbone.history.fragment === 'users/' + this.currentUser.id) {
       return;
     }
-    console.log("removed: ");
-    console.log(friendship);
     var friendView;
     var that = this;
     _(this.subviews('.friend-items')).each(function(view) {

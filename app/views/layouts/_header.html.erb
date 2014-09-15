@@ -3,8 +3,17 @@
     <ul class="nav navbar-nav">
       
     <% if signed_in? %>
-      <p class="navbar-text">Hi <%= current_user.profile.first_name %>!</p>
-      
+      <p class="navbar-text">Signed in as <%= current_user.profile.first_name %></p>
+      <li class="dropdown">
+        <a class="dropdown-toggle" type="button" id="options" data-toggle="dropdown">
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="options">
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="/#/users/all">All Users</a></li>
+          <li><%= link_to "My Profile", user_url(current_user), method: :get %></li>
+          <li><%= link_to "Sign out", session_url, method: :delete %></li>
+        </ul>
+      </li>
       
       
     <% else %>
@@ -32,17 +41,6 @@
   <div class="pull-right">
     <ul class="nav navbar-nav nav-cushion">
       <li><a class="navbar-brand" href="/#"><%= image_tag("logo-xs.png") %></a></li>
-      <% if signed_in? %>
-      <li class="dropdown">
-        <a class="dropdown-toggle" type="button" id="options" data-toggle="dropdown">
-          <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="options">
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="/#/users/all">All Users</a></li>
-          <li><%= link_to "Sign out", session_url, method: :delete %></li>
-        </ul>
-      </li>
-      <% end %>
     </ul>
   </div>
 </nav>

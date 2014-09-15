@@ -51,8 +51,8 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
       $postsLink.removeClass('active');
       $photosLink.removeClass('active');
     }
-    
-    this.render();
+    this.$('.post-new')[0].remove();
+    //this.render();
   },
   
   switchPosts: function() {
@@ -80,21 +80,22 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
     var $friendsLink = this.$el.find($('li.friends-link'));
     var $photosLink = this.$el.find($('li.photos-link'));
     var $postsLink = this.$el.find($('li.posts-link'));
-    
+
     if (!$photosLink.hasClass('active')) {
       this.sticky = "photos";
       var target = $('.sticky-target');
       target.removeClass('friends');
       target.removeClass('posts');
+      target.removeClass('container');
       target.addClass('photos');
-      target.addClass('container');
       
       $photosLink.addClass('active');
       $friendsLink.removeClass('active');
       $postsLink.removeClass('active');
     }
     
-    this.render();
+    this.$('.post-new')[0].remove();
+    //this.render();
   },
   
   refreshAll: function() {
@@ -148,8 +149,6 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
       this.model.fetch();
       this.currentUser.fetch();
       break;
-    default:
-      console.log("you fucked up somewhere");
     }
   },
   
