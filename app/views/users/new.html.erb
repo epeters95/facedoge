@@ -2,7 +2,16 @@
 
 
 <div class="col-xs-3 signup-page">
-  <h1>Sign Up</h1>
+  <h1 class="tryme">Sign Up</h1>
+  <br>
+  <form action="<%= session_url %>" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+    <input type="hidden" name="user[email]" value="doge@gmail.com">
+    <input type="hidden" name="user[password]" value="dogeismaster">
+
+    <input class="btn tryme" type="submit" value="Try out!">
+  </form>
 
   <form action="<%= users_url %>" method="POST" role="form" id="signup-form" onsubmit="event.preventDefault(); submitForm();">
     <input
