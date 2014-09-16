@@ -178,12 +178,12 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
     if (this.sticky === 'friends') {
       if (this.subviews('.friends').length === 0) { this.addFriendViews(); }
       if (this.subviews('.post-new')[0]) {
-        //this.removeSubview('.post-new', this.subviews('.post-new'));
+        this.removeSubview('.post-new', this.subviews('.post-new')[0]);
       }
     } else if (this.sticky === '.photos') {
       this.removeSubview('.friends', this.subviews('.friends'));
       if (this.subviews('.post-new')[0]) {
-        //this.removeSubview('.post-new', this.subviews('.post-new'));
+        this.removeSubview('.post-new', this.subviews('.post-new')[0]);
       }
     } else if (this.sticky === 'posts' && this.form) {
       this.addSubview('.post-new', this.form);

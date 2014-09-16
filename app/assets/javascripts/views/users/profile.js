@@ -51,8 +51,7 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
       $postsLink.removeClass('active');
       $photosLink.removeClass('active');
     }
-    this.$('.post-new')[0].remove();
-    //this.render();
+    this.render();
   },
   
   switchPosts: function() {
@@ -86,16 +85,14 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
       var target = $('.sticky-target');
       target.removeClass('friends');
       target.removeClass('posts');
-      target.removeClass('container');
+      target.addClass('container');
       target.addClass('photos');
       
       $photosLink.addClass('active');
       $friendsLink.removeClass('active');
       $postsLink.removeClass('active');
     }
-    
-    this.$('.post-new')[0].remove();
-    //this.render();
+    this.render();
   },
   
   refreshAll: function() {
