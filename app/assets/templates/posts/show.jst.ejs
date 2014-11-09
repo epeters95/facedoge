@@ -1,5 +1,6 @@
 <div class="post-view">
 <% var dateString = moment(post.get("created_at"), "YYYY-MM-DD HH:mm:SS Z").format('MMMM Do YYYY, h:mm a') %>
+<% if (dateString === "Invalid date") { dateString = moment().format('MMMM Do YYYY, h:mm a') } %>
 <div class="posting-user"></div><div class="datetime"><span><%= dateString %></span></div>
 <div class="post-body">
   <span><%= post.escape("body") %></span>

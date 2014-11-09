@@ -88,16 +88,17 @@ Facedoge.Views.CurrentProfile = Facedoge.Views.UserProfile.extend({
       profile: {
         first_name: this.$('#first-name').val(),
         last_name: this.$('#last-name').val(),
-        bio: this.$('#bio').val(),
+        bio: _.escape(this.$('#bio').val()),
         user_id: this.currentUser.id
       }
-    }, { patch: true, wait: true });
-    this.currentUser.fetch();
-    this.render();
+    }, { patch: true });
+    var that = this;
+    this.currentUser.fetch({ success: function() {
+      that.render();
+    }});
   },
   
   addPostView: function(post) {
-    this.currentUser.fetch();
     var postView = new Facedoge.Views.PostShow({
       model: post
     });

@@ -15,6 +15,10 @@
  */
 @import "bootstrap";
 
+div#preload { display: none; }
+
+div.loading { margin: 0 auto; }
+
 body {
   background-color: #EFEFEF;
   font-family: 'Ubuntu', sans-serif;
@@ -98,6 +102,7 @@ input[type="submit"]:hover {
   position: relative;
   left: 230px;
   padding-left: 12%;
+  max-width: 1000px;
 }
 
 .sidebar > nav {

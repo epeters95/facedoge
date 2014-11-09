@@ -108,6 +108,11 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
   },
   
   requestFriend: function (event) {
+
+    var addLoading = $('<img class="loading" src="/assets/loading.gif">');
+    var button = this.$el.find("#request");
+    if (button.text() !== "Request sent") { button.html(addLoading) }
+
     switch(this.requestStatus()) {
     case "Unfriend":
       var friendship = this.currentUser.friendships().findWhere({
@@ -150,9 +155,10 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
   },
   
   requestStatus: function () {
+
     if (!this.currentUser.id || !this.model.id ||
       this.currentUser.id === this.model.id) {
-      return 0;
+      return "Loading...";
     }
     if (this.currentUser.isFriendsWith(this.model)) {
       return "Unfriend";
@@ -176,7 +182,11 @@ Facedoge.Views.UserProfile = Backbone.CompositeView.extend({
   renderButton: function() {
     var status = this.requestStatus();
     if (status) {
-      var button = $('<button>' + status + '</button>');
+      if (status === 'Loading...') {
+        var button = $('<img class="loading" src="/assets/loading.gif">');
+      } else {
+        var button = $('<button>' + status + '</button>');
+      }
       button.attr('id', 'request-btn');
       this.$el.find("#request").html(button);
     }

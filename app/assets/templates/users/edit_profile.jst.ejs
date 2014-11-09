@@ -34,7 +34,7 @@
         </p>
     
         <p><b>Bio: </b>
-          <input type="text" id="bio" name="profile[bio]" value="<%= user.profile().bio %>">
+          <input type="text" id="bio" name="profile[bio]" value="<%= _.escape(user.profile().bio) %>">
         </p>
       </div>
       <br>

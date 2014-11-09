@@ -65,6 +65,7 @@ Facedoge.Views.Sidebar = Backbone.CompositeView.extend({
   },
   
   addRequestViews: function() {
+    
     var requests = this.currentUser.friendships().where({
       in_friend_id: this.currentUser.id
     });
@@ -73,6 +74,7 @@ Facedoge.Views.Sidebar = Backbone.CompositeView.extend({
       var user = Facedoge.allUsers.get(request.get("out_friend_id"));
       if (!that.currentUser.isFriendsWith(user)) {
         var exists = false;
+        // avoid double renders
         _(that.subviews('.request-items')).each(function(view) {
           if (view.model.id === request.get("out_friend_id")) { exists = true }
         });
@@ -84,7 +86,7 @@ Facedoge.Views.Sidebar = Backbone.CompositeView.extend({
           that.addSubview('.request-items', requestView);
         }
       }
-    })
+    });
   },
   
   render: function() {

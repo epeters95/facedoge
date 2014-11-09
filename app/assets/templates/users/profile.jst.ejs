@@ -38,7 +38,7 @@
       <div id="credentials">
         <p id="email"><b>Email: </b><%= user.escape("email") %></p>
     
-        <p id="bio"><b>Bio: </b><%= user.profile().bio %></p>
+        <p id="bio"><b>Bio: </b><%= _.escape(user.profile().bio) %></p>
       </div>
       <br>
       <div class="<%= "sticky-target " + sticky %>">
@@ -52,7 +52,7 @@
   
 <% } else { %>
   
-  <div class="loading"><i>Loading...</i></div>
+  <div class="loading"><i>Loading...</i><img class="loading" src="/assets/loading.gif"></div>
   
 <% } %>
 
