@@ -17,3 +17,5 @@ The main features include:
 * Use of composite view structure; nested views to match API resources
 * Use of jQuery-cookie plugin to determine current_user from client's end
 * Filepicker.io for photo uploads
+
+[www.facedoge.net](www.facedoge.net)
