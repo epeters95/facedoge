@@ -2,7 +2,7 @@ Facedoge.Views.PostLikeShow = Backbone.View.extend({
   template: JST["like_show"],
   
   initialize: function() {
-    this.post = this.model;
+    this.listenTo(Facedoge.allUsers, 'sync', this.render);
   },
   
   events: {
@@ -41,9 +41,36 @@ Facedoge.Views.PostLikeShow = Backbone.View.extend({
   },
   
   render: function() {
+    var length = this.model.likes().models.length;
+    var username = "";
+    var that = this;
+
+    if (length === 1) {
+      var user = Facedoge.allUsers.findWhere({
+        id: this.model.likes().models[0].get("user_id")
+      });
+      
+      if (user.profile()) {
+        username = user.profile().first_name + " " + user.profile().last_name;
+      } else { 
+        user.fetch({
+          success: function() {
+            username = user.profile().first_name + " " + user.profile().last_name;
+            var content = that.template({
+              doesLike: that.like(),
+              numLikes: length,
+              name: username
+            });
+            that.$el.html(content);
+            return that;
+          }
+        });
+      }
+    }
     var content = this.template({
       doesLike: this.like(),
-      numLikes: this.model.likes().models.length
+      numLikes: length,
+      name: username
     });
     this.$el.html(content);
     return this;

@@ -2,8 +2,13 @@
   <span class="glyphicon glyphicon-thumbs-up"></span>
   
   <% var likesString = " people like this.  " %>
-  <% if (numLikes === 1) { likesString = " person likes this.  " } %>
-    <span class="like-string">  <%= "" + numLikes + likesString %></span>
+  <span class="like-string">
+  <% if (numLikes === 1) { %>
+    <%= name + " likes this.  " %>
+  <% } else { %>
+  	<%= "" + numLikes + likesString %></span>
+  <% } %>
+  	</span>
   <% if (doesLike) { %>
     <a class="unlike">Unlike</a>
   <% } %>

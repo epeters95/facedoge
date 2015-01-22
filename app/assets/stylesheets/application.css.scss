@@ -215,12 +215,13 @@ div.post-body {
   position: relative;
   left: 95px;
   margin-top: -60px;
+  padding-right: calc(6% + 65px);
 }
 
 div.comment-body {
   position: relative;
   margin-top: -60px;
-  padding-right: 100px;
+  padding-right: calc(6% + 65px);
   left: 95px;
 }
 
