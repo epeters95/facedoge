@@ -1,6 +1,6 @@
 # Facedoge
 
-Facedoge is a minimalist social networking app based on Facebook.  It utilizes Backbone.js for a clean, single-page user interface.  Check it out: [www.facedoge.net](http://www.facedoge.net)
+Facedoge is a minimalist social networking app based on Facebook.  It utilizes Backbone.js for a clean, single-page user interface.  Check it out: [facedoge.herokuapp.com](http://facedoge.herokuapp.com)
 
 The main features include:
 
